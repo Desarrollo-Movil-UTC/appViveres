@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.appviveresprimavera">
-
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppViveresPrimavera">
-        <activity android:name=".DetalleProductoActivity"></activity>
+        android:usesCleartextTraffic="true"
+        <activity android:name=".ProveedoresActivitty"></activity>
+        <activity android:name=".DetalleProductoActivity" />
         <activity android:name=".ConsultarProductoActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity">

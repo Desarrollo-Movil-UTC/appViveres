@@ -18,4 +18,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(ventanaRegistro); // iniciando la pantalla de registro
     }
 
+    public void abrirventanaProveedor(View vista) {
+        Intent ventanaProveedores = new Intent(getApplicationContext(), ProveedoresActivitty.class); // creando un intent para convocar a registroActivity
+        startActivity(ventanaProveedores); // iniciando la pantalla de proveeedores
+    }
+
+
+
+
 }
