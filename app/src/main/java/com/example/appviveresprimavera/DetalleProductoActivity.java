@@ -3,6 +3,12 @@ package com.example.appviveresprimavera;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+
 
 public class DetalleProductoActivity extends AppCompatActivity {
 
@@ -10,5 +16,6 @@ public class DetalleProductoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_producto);
+
     }
 }

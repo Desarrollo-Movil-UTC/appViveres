@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.appviveresprimavera.entidades.Proveedor;
 import com.example.appviveresprimavera.webservice.ClienteApi;
 
@@ -37,6 +39,35 @@ public class ProveedoresActivitty extends AppCompatActivity {
         lstProveedores=findViewById(R.id.lstProveedores);
         //Consultando clientes del ApiServer y presentandolos en el ListView correspondiente
         obtenerClientes(null);
+        //Accion al dar click sobre un elemento de la lista
+        lstProveedores.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Capturando al cliente seleccionado en el ListVIew mediante su posición
+                Proveedor proveedorSeleccionado=listadoProveedores.get(position);
+                String idProv =proveedorSeleccionado.getId();
+                String nombreProv =proveedorSeleccionado.getNombre();
+                String descripcionProv =proveedorSeleccionado.getDescripcion();
+                String telefonProv =proveedorSeleccionado.getTelefono();
+                String celularProv =proveedorSeleccionado.getCelular();
+                String emailProv =proveedorSeleccionado.getEmail();
+                String diasVisitaProv =proveedorSeleccionado.getDias_visita();
+                String imagen_prov =proveedorSeleccionado.getImagen();
+                //manejando el objeto para abrir la ventana de editarCurso
+                Intent ventanaDetalleProveedor = new Intent(getApplicationContext(), DetalleProveedoresActivity.class);
+                ventanaDetalleProveedor.putExtra("idProv", idProv); //pasando el id del detalle como parametro
+                ventanaDetalleProveedor.putExtra("nombreProv", nombreProv);
+                ventanaDetalleProveedor.putExtra("descripcionProv", descripcionProv);
+                ventanaDetalleProveedor.putExtra("telefonProv", telefonProv);
+                ventanaDetalleProveedor.putExtra("celularProv", celularProv);
+                ventanaDetalleProveedor.putExtra("emailProv", emailProv);
+                ventanaDetalleProveedor.putExtra("diasVisitaProv", diasVisitaProv);
+                ventanaDetalleProveedor.putExtra("imagen_prov", imagen_prov);
+                startActivity(ventanaDetalleProveedor); //solicitando que se habra la ventana para editar curso
+                finish(); //cerrando la ventana de editar curso una vez terminado el prceso de edicion
+            }
+        });
+
     }
 
     //Metodo para consultar todos los clientes mediante el ApiServer

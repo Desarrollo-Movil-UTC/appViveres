@@ -8,6 +8,7 @@ public class Proveedor {
     private  String celular;
     private  String email;
     private  String dias_visita;
+    private  String imagen;
 
     public String toString(){
         return this.nombre+" "+this.telefono+" "+this.dias_visita;
@@ -76,6 +77,14 @@ public class Proveedor {
         this.dias_visita = dias_visita;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen)
+    {
+        this.imagen = imagen;
+    }
 
 
 }
