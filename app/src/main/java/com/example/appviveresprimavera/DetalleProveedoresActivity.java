@@ -20,7 +20,6 @@ import com.bumptech.glide.Glide;
 public class DetalleProveedoresActivity extends AppCompatActivity {
     //definicion de variables: para capturar los valores que recibe la actividad
     String idP, nombreP, descripcionP, telefonoP, celularP, emailP,diasVisitaP,imagenP;
-
     TextView txtIdP,txtNombreP,txtDescripcionP,txtTelefonoP,txtCelularP,txtEmailP,txtDiasVisitaP;
     ImageView imgProveedor;
     @Override
