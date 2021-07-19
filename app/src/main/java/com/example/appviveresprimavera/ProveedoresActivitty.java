@@ -88,8 +88,8 @@ public class ProveedoresActivitty extends AppCompatActivity {
     private View.OnClickListener ClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int selected_item = (Integer) v.getId();
-            Toast.makeText(getApplicationContext(), "numero"+selected_item,Toast.LENGTH_LONG).show();
+            int selected_item = (Integer) v.getId(); //capturo el id del boton para consultar el datos del proeedor
+            //Toast.makeText(getApplicationContext(), "numero"+selected_item,Toast.LENGTH_LONG).show();
             //Capturando al cliente seleccionado en el ListVIew mediante su posición
             Proveedor proveedorSeleccionado=listadoProveedores.get(selected_item);
             String idProv =proveedorSeleccionado.getId();
