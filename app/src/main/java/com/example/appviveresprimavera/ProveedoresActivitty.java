@@ -27,7 +27,7 @@ public class ProveedoresActivitty extends AppCompatActivity {
     //Declarando Objetos para la Interfaz Gráfica
     ListView lstProveedores;
     //Instanciando Objetos para las Peticiones REST al ApiServer
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.191:8000/") //definiendo la URL base de la web
+    Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.105:8000/") //definiendo la URL base de la web
             .addConverterFactory(GsonConverterFactory.create()).build(); //se convierte los datos a json
     ClienteApi clienteApi=retrofit.create(ClienteApi.class);
     ArrayList<Proveedor> listadoProveedores= new ArrayList<>();
