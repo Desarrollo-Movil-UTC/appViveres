@@ -22,12 +22,27 @@
         <activity android:name=".ConsultarProductoActivity" />
         <activity android:name=".RegistroActivity" />
         <activity android:name=".MainActivity">
+
+        android:theme="@style/Theme.AppViveresPrimavera" >
+        <activity android:name=".CerrarVentaActivity" >
+        </activity>
+        <activity android:name=".BienvenidaActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MenuActivity" >
+        </activity>
+        <activity android:name=".DetalleProveedoresActivity" >
+        </activity>
+        <activity android:name=".ProveedoresActivitty" />
+        <activity android:name=".DetalleProductoActivity" />
+        <activity android:name=".ConsultarProductoActivity" />
+        <activity android:name=".RegistroActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

@@ -20,7 +20,6 @@ import com.bumptech.glide.Glide;
 public class DetalleProveedoresActivity extends AppCompatActivity {
     //definicion de variables: para capturar los valores que recibe la actividad
     String idP, nombreP, descripcionP, telefonoP, celularP, emailP,diasVisitaP,imagenP;
-
     TextView txtIdP,txtNombreP,txtDescripcionP,txtTelefonoP,txtCelularP,txtEmailP,txtDiasVisitaP;
     ImageView imgProveedor;
     @Override
@@ -50,8 +49,7 @@ public class DetalleProveedoresActivity extends AppCompatActivity {
                 emailP = parametrosExtra.getString("emailProv");
                 diasVisitaP = parametrosExtra.getString("diasVisitaProv");
                 imagenP = parametrosExtra.getString("imagen_prov");
-
-                Toast.makeText(getApplicationContext(), "datos"+imagenP,Toast.LENGTH_LONG ).show();
+                //Toast.makeText(getApplicationContext(), "datos"+imagenP,Toast.LENGTH_LONG ).show();
             }catch (Exception ex){ //ex recibe el tipo de error
                 Toast.makeText(getApplicationContext(), "Error al procesar la solicitud "+ex.toString(),
                         Toast.LENGTH_LONG).show();
