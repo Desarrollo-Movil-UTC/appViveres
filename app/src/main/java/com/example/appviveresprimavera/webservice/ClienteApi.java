@@ -9,6 +9,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface ClienteApi {
+
+    String BASE_URL="http://192.168.0.105:8000/";
+
     @GET("proveedores/")
     public Call<List<Proveedor>> obtenerTodos();
 

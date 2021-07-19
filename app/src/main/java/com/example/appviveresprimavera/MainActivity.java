@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void abrirRegistro(View vista) {
-        Intent ventanaRegistro = new Intent(getApplicationContext(), RegistroActivity.class); // creando un intent para convocar a registroActivity
+        Intent ventanaRegistro = new Intent(getApplicationContext(), GestionProductosActivity.class); // creando un intent para convocar a registroActivity
         startActivity(ventanaRegistro); // iniciando la pantalla de registro
     }
 
