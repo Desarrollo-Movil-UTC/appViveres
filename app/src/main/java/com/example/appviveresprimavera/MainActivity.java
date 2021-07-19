@@ -5,8 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /*
 @autores:Sandoval,sanchez,Robayo
@@ -20,11 +26,16 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor editor; //objeto de tipo editor de sharedpreferences
     String llave = "sesion";
     //**********************************
+    EditText txtEmailLogin, txtPasswordLogin;
+    BaseDatos bdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        txtEmailLogin=(EditText) findViewById(R.id.txtEmailLogin);
+        txtPasswordLogin=(EditText) findViewById(R.id.txtPasswordLogin);
+        bdd=new BaseDatos(getApplicationContext());
         //inicializar elementos sahred para verificar o guardar sesion ******************
         preferences = this.getSharedPreferences("sesiones", Context.MODE_PRIVATE);
         editor = preferences.edit();
@@ -34,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(ventanaMenu);
         }
         
-        //guardando provicinalmente la sesion hasta que la katy cree el login
+        /*/guardando provicinalmente la sesion hasta que la katy cree el login
         boolean sesion = false;
         sesion = true;
-        guardarSesion(sesion);
+        guardarSesion(sesion);*/
         //*********************************************************************************
 
     }
     public void abrirRegistro(View vista) {
-        Intent ventanaRegistro = new Intent(getApplicationContext(), GestionProductosActivity.class); // creando un intent para convocar a registroActivity
+        Intent ventanaRegistro = new Intent(getApplicationContext(), RegistroActivity.class); // creando un intent para convocar a registroActivity
         startActivity(ventanaRegistro); // iniciando la pantalla de registro
     }
 
@@ -64,5 +75,47 @@ public class MainActivity extends AppCompatActivity {
         editor.apply(); //que guarde o aplique el cambio
     }
     //************************************************************************
+    public void iniciarSesion(View vista){
+        boolean sesion = false;
+        // logica de negocio para capturar los valores ingresados de email y Password y consultarlos
+        String email =txtEmailLogin.getText().toString();
+        String password =txtPasswordLogin.getText().toString();
+        password = getMD5(password);
+        //consultando el usuario en la bas de datos
+        Cursor usuarioEncontrado = bdd.obtenerUsuarioPorEmailPassword(email,password);
+        if(usuarioEncontrado!=null){
+            String nombreBdd= usuarioEncontrado.getString(1).toString();
+            Toast.makeText(getApplicationContext(),"Bienvenido "+nombreBdd,Toast.LENGTH_LONG).show();
+            finish();
+            Intent ventanaMenu= new Intent(getApplicationContext(), MenuActivity.class); // creando un intent para convocar a registroActivity
+            sesion = true;
+            guardarSesion(sesion);
+            Toast.makeText(getApplicationContext(), "Sesion Guardada", Toast.LENGTH_LONG).show();
+            //abrir el activity del menu de opciones
+            startActivity(ventanaMenu);
+        }else{
+            //para el caso de que el usuarioEncontrado sea nulo se muestra un mensaje informativo
+            Toast.makeText(getApplicationContext(),"Email o contraseña incorrecta",Toast.LENGTH_LONG).show();
+            txtPasswordLogin.setText("");//limpuenaod el valor del campo de la contarseña
+        }
 
+    }
+    public static String getMD5(String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(s.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuilder hexString = new StringBuilder();
+            for (byte aMessageDigest : messageDigest)
+                hexString.append(Integer.toHexString(0xFF & aMessageDigest));
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

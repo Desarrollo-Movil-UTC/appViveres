@@ -92,9 +92,9 @@
                     android:layout_height="55dp"
                     android:backgroundTint="#87d469"
                     android:drawableLeft="@android:drawable/ic_media_play"
-                    android:onClick="abrirventanaMenu"
+                    android:onClick="iniciarSesion"
                     android:paddingTop="0sp"
-                    android:text="Iniciar Seción"
+                    android:text="Iniciar Sesión"
                     android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     app:cornerRadius="20dp" />

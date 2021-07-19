@@ -15,12 +15,14 @@ import android.graphics.Bitmap;
 
 public class BaseDatos extends SQLiteOpenHelper {
     private static final String nombreBdd = "bdd_viveres"; //definiendo el nombre dela Bdd
-    private static final int versionBdd = 3; //definiendo la version de la BDD
+    private static final int versionBdd = 4; //definiendo la version de la BDD
 
     //estructura de la tabla productos
 
     private static final String tablaProducto= "create table producto(id_prod integer primary key autoincrement," +
             "nombre_prod text, fecha_prod text, stock_prod integer, precio_prod double, URLimagen_prod text, descripcion_prod text, proveedor_prod text)"; // definiendo estructura de la tabla usuarios
+    private static final String tablaUsuario="create table usuario(id_usu integer primary key autoincrement, nombre_usu text, direccion_usu text," +
+            "email_usu text,password_usu text,tipo_usu text);";//definir la estructura de la tabla de usuarios
 
     /*
     private static final String tablaProducto= "create table producto(id_prod integer primary key autoincrement," +
@@ -36,6 +38,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         // ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla
         db.execSQL(tablaProducto);
+        db.execSQL(tablaUsuario);
 
     }
 
@@ -43,6 +46,8 @@ public class BaseDatos extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS producto");//elimincacion de la version anterior de la tabla usuarios se puee usar otro comando Dll como alter table
         db.execSQL(tablaProducto); //Ejecucion del codigo para crear la tabla usuaios con su nueva estructura
+        db.execSQL("DROP TABLE IF EXISTS usuario");// elimina de la version anterior de la tabla usuario
+        db.execSQL(tablaUsuario);
     }
 
     //agregar producto (String nombre, String fecha, int stock, double precio, byte[] imagen,  String URLimagen, String descripcion)
@@ -98,5 +103,29 @@ public class BaseDatos extends SQLiteOpenHelper {
             return true; //retornando verdadero ya que el proceso de eliminacion fue exitoso
         }
         return false; //se retorna falso cuando no existe la bdd
+    }
+    public boolean agregarUsuario(String nombre, String direccion, String email, String password, String tipo){
+        SQLiteDatabase miBdd = getWritableDatabase(); // llamando a la base de datos en el objeto miBdd
+        if(miBdd!=null){// validando que existan datos en la base de datos
+            miBdd.execSQL("insert into usuario(nombre_usu,direccion_usu, email_usu, password_usu, tipo_usu) " +
+                    "values('"+nombre+"','"+direccion+"','"+email+"','"+password+"','"+tipo+"')");//ejecutando la sentencia de insercion sql
+            miBdd.close(); //cerrando la conexion a la base de datos
+            return true; //retorno cuando la insercion es exitosa
+        }
+        return false;// retorno cuando no exista la base de datos
+    }
+    public Cursor obtenerUsuarioPorEmailPassword(String email, String password){
+        SQLiteDatabase miBdd = getWritableDatabase(); // llamando a la base de datos en el objeto miBdd
+        //Ejecutando la consulta y almacenando las resultados en el objeto usuario
+        Cursor usuario= miBdd.rawQuery("select * from usuario where email_usu='"+email+"'\n" +
+                "and password_usu='"+password+"';", null);
+        if(usuario.moveToFirst()){ //verificando que el objeto usuario tenga resultados
+            return usuario; //retornamos los datos encontrados
+
+        }else{
+            //No se encuentra el usuario -> porque no existe o porque el email y contrase;a ingresados son incorrectos
+            return null;
+        }
+
     }
 }
