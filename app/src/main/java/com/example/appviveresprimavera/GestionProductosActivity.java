@@ -108,4 +108,11 @@ public class GestionProductosActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No existen productos", Toast.LENGTH_LONG).show();
         }
     }
+
+    //Boton Salir
+    public void salirProductos(View vista) { //metodo para cerrar
+        Intent ventanaMenu = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(ventanaMenu);
+        finish(); //cerrando la activity
+    }
 }

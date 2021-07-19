@@ -53,9 +53,9 @@ public class MenuActivity extends AppCompatActivity {
         }else if(id == R.id.gestionProductos) {
 
             Toast.makeText(this, "Gestión de Poductos", Toast.LENGTH_LONG).show();
-            //Intent ventanaEstudiantes=new Intent(getApplicationContext(),EstudiantesActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
-            //startActivity(ventanaEstudiantes); //solicitamos que habra el formulario de login
-            //finish(); //cerrando la activity
+            Intent ventanagestionProductos=new Intent(getApplicationContext(),GestionProductosActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
+            startActivity(ventanagestionProductos); //solicitamos que habra el formulario de login
+            finish(); //cerrando la activity
 
         }else if(id == R.id.gestionVentas) {
             Toast.makeText(this, "Gestión de Ventas ", Toast.LENGTH_LONG).show();
