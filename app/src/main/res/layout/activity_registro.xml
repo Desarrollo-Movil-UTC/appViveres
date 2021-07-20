@@ -125,17 +125,6 @@
                             android:hint="Confirme su Contraseña"
                             android:inputType="textPassword" />
 
-                        <EditText
-                            android:id="@+id/txt_tipoUsu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:drawableStart="@drawable/ic_person"
-                            android:drawablePadding="10dp"
-                            android:ems="10"
-                            android:hint="Tipo de usuario"
-                            android:inputType="textPersonName" />
-
                         <Button
                             android:id="@+id/button"
                             android:layout_width="match_parent"
@@ -156,6 +145,7 @@
                             android:backgroundTint="#92304B"
                             android:onClick="cerrarPantallaRegistro"
                             android:text="cancelar" />
+
                     </LinearLayout>
                 </ScrollView>
 

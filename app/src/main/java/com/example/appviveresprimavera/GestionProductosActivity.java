@@ -1,7 +1,9 @@
 package com.example.appviveresprimavera;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -50,21 +52,13 @@ public class GestionProductosActivity extends AppCompatActivity {
                 productosObtenidos.moveToPosition(position);
 
                 //mediante el cursor se obtiene los datos del curso seleccionado
-                String idProd = productosObtenidos.getString(0).toString();
                 String nombreProd = productosObtenidos.getString(1).toString();
-                String fecha = productosObtenidos.getString(2).toString();
-                String cantidad = productosObtenidos.getString(3).toString();
-                String precio = productosObtenidos.getString(4).toString();
                 String foto = productosObtenidos.getString(5).toString();
                 String descripcion = productosObtenidos.getString(6).toString();
 
                 //manejando el objeto para abrir la ventana de Lista de Estudiantes de un curso
                 Intent ventanaActualizarProducto = new Intent(getApplicationContext(), ActualizarEliminarProductoActivity.class);
-                ventanaActualizarProducto.putExtra("idProd", idProd); //pasando el id del curso como parametro
                 ventanaActualizarProducto.putExtra("nombreProd", nombreProd);
-                ventanaActualizarProducto.putExtra("fechaProd", fecha);
-                ventanaActualizarProducto.putExtra("cantidadProd", cantidad);
-                ventanaActualizarProducto.putExtra("precioProd", precio);
                 ventanaActualizarProducto.putExtra("fotoProd", foto);
                 ventanaActualizarProducto.putExtra("descripcionProd", descripcion);
 
@@ -115,4 +109,5 @@ public class GestionProductosActivity extends AppCompatActivity {
         startActivity(ventanaMenu);
         finish(); //cerrando la activity
     }
+
 }

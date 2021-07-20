@@ -128,4 +128,16 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
 
     }
+    public Cursor obtenerProductoPorId(String id) {
+        SQLiteDatabase miBdd = getWritableDatabase(); // llamado a la base de datos
+        //crear un cursor donde inserto la consulta sql y almaceno los resultados en el objeto usuario
+        Cursor ProductoDetalle = miBdd.rawQuery("select * from curso where  id_cur='"+id+"';", null);
+        //validar si existe o no la consulta
+        if (ProductoDetalle.moveToFirst()) { //metodo movetofirst nueve al primer elemento encontrado si hay el usuario
+            return ProductoDetalle; //retornamos los datos encontrados
+        } else {
+            //no se encuentra informacion del producto -> no existe
+            return null; //devuelvo null si no hay
+        }
+    }
 }
