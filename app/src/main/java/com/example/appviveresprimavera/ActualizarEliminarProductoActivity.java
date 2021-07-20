@@ -119,6 +119,9 @@ public class ActualizarEliminarProductoActivity extends AppCompatActivity implem
         txtPrecioProductoEditar.setText(precio);
         txtFotoProductoEditar.setText(URLfoto);
         txtDescripcionProductoEditar.setText(descripcion);
+        //presenta la imagen creada como mapa de bits en el imagen view
+        Bitmap myBitmap = BitmapFactory.decodeFile(URLfoto);
+        FotoProductoEditar.setImageBitmap(myBitmap);
 
         //instanciar /construir la base de datos en el objeto mi bdd
         miBdd= new BaseDatos(getApplicationContext());

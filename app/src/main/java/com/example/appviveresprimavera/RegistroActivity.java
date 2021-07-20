@@ -31,7 +31,7 @@ public class RegistroActivity extends AppCompatActivity {
         txt_confirmacionUsu=(EditText)findViewById(R.id.txt_confirmacionUsu);
 
         miBdd=new BaseDatos(getApplicationContext());
-        tipoUsu="Administrador";
+        tipoUsu="Cliente";
     }
     public void cerrarPantallaRegistro(View vista){
 
