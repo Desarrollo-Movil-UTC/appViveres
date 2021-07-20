@@ -48,6 +48,19 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/button4"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:backgroundTint="#87d469"
+                android:drawableLeft="?attr/homeAsUpIndicator"
+                android:onClick="cerrarSecion"
+                android:text="Cerrar Cesión"
+                android:textColor="#FFFF"
+                android:textSize="20sp"
+                app:cornerRadius="20dp"
+                app:iconPadding="2dp" />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_prod"
                 android:layout_width="match_parent"
