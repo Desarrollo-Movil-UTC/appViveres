@@ -75,6 +75,7 @@ public class RegistroActivity extends AppCompatActivity {
                                             // Cuando la condiccion es verdadera se realiza el proceso e insersion
                                             miBdd.agregarUsuario(nombre, direccion, email, password, tipo);//invocando al metodo agregarusuario del objeto miBdd para insertar datos en SQLite
                                             Toast.makeText(getApplicationContext(), "Usuario almacenado exitosamente", Toast.LENGTH_LONG).show();
+                                            cerrarPantallaRegistro(null);
                                         } else {
                                             // Cuando la condiccion es falsa se presenta un mensaje de error
                                             Toast.makeText(getApplicationContext(), "La contraseña ingresada no coincide", Toast.LENGTH_LONG).show();
