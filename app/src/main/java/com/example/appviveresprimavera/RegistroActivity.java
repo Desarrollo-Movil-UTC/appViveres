@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.security.MessageDigest;
@@ -14,8 +15,10 @@ import java.util.regex.Pattern;
 
 public class RegistroActivity extends AppCompatActivity {
 
-    EditText txt_nombreUsu, txt_direccionUsu, txt_emailUsu, txt_passwordUsu,txt_confirmacionUsu,txt_tipoUsu; // defiiniendo objetos para capturar datos de la vista
+    EditText txt_nombreUsu, txt_direccionUsu, txt_emailUsu, txt_passwordUsu,txt_confirmacionUsu; // defiiniendo objetos para capturar datos de la vista
     BaseDatos miBdd;
+    RadioButton rbCliente, rbAdmin;
+    String tipoUsu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +29,9 @@ public class RegistroActivity extends AppCompatActivity {
         txt_emailUsu=(EditText)findViewById(R.id.txt_emailUsu);
         txt_passwordUsu=(EditText)findViewById(R.id.txt_passwordUsu);
         txt_confirmacionUsu=(EditText)findViewById(R.id.txt_confirmacionUsu);
-        txt_tipoUsu=(EditText)findViewById(R.id.txt_tipoUsu);
+
         miBdd=new BaseDatos(getApplicationContext());
+        tipoUsu="Administrador";
     }
     public void cerrarPantallaRegistro(View vista){
 
@@ -42,7 +46,7 @@ public class RegistroActivity extends AppCompatActivity {
         String email = txt_emailUsu.getText().toString();
         String password = txt_passwordUsu.getText().toString();
         String passwordConfirmada = txt_confirmacionUsu.getText().toString();
-        String tipo = txt_tipoUsu.getText().toString();
+        String tipo = tipoUsu.toString();
 
         if (nombre.isEmpty() || direccion.isEmpty() || email.isEmpty() || password.isEmpty() || tipo.isEmpty() ) { //si algun campo esta vacio
             Toast.makeText(getApplicationContext(), "Para continuar con el registro llene todos los campos solicitados",
@@ -83,20 +87,6 @@ public class RegistroActivity extends AppCompatActivity {
                         }
                     }
                 }
-    public boolean validarCedula(String cedula) {
-        if (cedula.length() != 10){
-            return false;
-        } else{
-            for (int x = 0; x < cedula.length(); x++) {
-                char c = cedula.charAt(x);
-                // Si no está entre a y z, ni entre A y Z, ni es un espacio
-                if (!(c >= '0' && c <= '9')) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     public boolean contieneSoloLetras(String cadena) {
         for (int x = 0; x < cadena.length(); x++) {

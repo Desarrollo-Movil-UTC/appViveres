@@ -85,14 +85,25 @@ public class MainActivity extends AppCompatActivity {
         Cursor usuarioEncontrado = bdd.obtenerUsuarioPorEmailPassword(email,password);
         if(usuarioEncontrado!=null){
             String nombreBdd= usuarioEncontrado.getString(1).toString();
+            String tipoBdd= usuarioEncontrado.getString(5).toString();
             Toast.makeText(getApplicationContext(),"Bienvenido "+nombreBdd,Toast.LENGTH_LONG).show();
-            finish();
-            Intent ventanaMenu= new Intent(getApplicationContext(), MenuActivity.class); // creando un intent para convocar a registroActivity
-            sesion = true;
-            guardarSesion(sesion);
+            if(tipoBdd.equals("Cliente")){
+                finish();
+                Intent ventanaMenu= new Intent(getApplicationContext(), ConsultarProductoActivity.class); // creando un intent para convocar a registroActivity
+                sesion = true;
+                guardarSesion(sesion);
+                //abrir el activity del menu de opciones
+                startActivity(ventanaMenu);
+            }else{
+                finish();
+                Intent ventanaMenu= new Intent(getApplicationContext(), MenuActivity.class); // creando un intent para convocar a registroActivity
+                sesion = true;
+                guardarSesion(sesion);
+                //abrir el activity del menu de opciones
+                startActivity(ventanaMenu);
+            }
             Toast.makeText(getApplicationContext(), "Sesion Guardada", Toast.LENGTH_LONG).show();
-            //abrir el activity del menu de opciones
-            startActivity(ventanaMenu);
+
         }else{
             //para el caso de que el usuarioEncontrado sea nulo se muestra un mensaje informativo
             Toast.makeText(getApplicationContext(),"Email o contraseña incorrecta",Toast.LENGTH_LONG).show();
