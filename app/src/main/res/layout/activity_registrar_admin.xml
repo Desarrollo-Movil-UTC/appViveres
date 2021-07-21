@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistroActivity">
+    tools:context=".RegistrarAdminActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,9 +63,9 @@
                         <TextView
                             android:id="@+id/textView2"
                             android:layout_width="match_parent"
-                            android:layout_height="70dp"
+                            android:layout_height="90dp"
                             android:gravity="center_horizontal"
-                            android:text="Registro de Cliente"
+                            android:text="Registro de Administrador"
                             android:textColor="#FFFFFF"
                             android:textSize="30sp"
                             android:textStyle="bold" />
@@ -139,7 +139,7 @@
                             android:layout_marginBottom="5dp"
                             android:backgroundTint="#4B9230"
                             android:drawableLeft="@android:drawable/ic_menu_save"
-                            android:onClick="registrarUsuario"
+                            android:onClick="registrarUsuarioAdmin"
                             android:text="Guardar" />
 
                         <Button

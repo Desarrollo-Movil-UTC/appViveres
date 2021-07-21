@@ -62,7 +62,7 @@
                 android:onClick="cerrarSecion"
                 android:paddingTop="0sp"
                 android:paddingBottom="0sp"
-                android:text="Cerrar Seción"
+                android:text="Cerrar Sesión"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 app:cornerRadius="20dp" />
