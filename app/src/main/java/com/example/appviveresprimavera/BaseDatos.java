@@ -15,12 +15,12 @@ import android.graphics.Bitmap;
 
 public class BaseDatos extends SQLiteOpenHelper {
     private static final String nombreBdd = "bdd_viveres"; //definiendo el nombre dela Bdd
-    private static final int versionBdd = 6; //definiendo la version de la BDD
+    private static final int versionBdd = 7; //definiendo la version de la BDD
 
     //estructura de la tabla productos
 
     private static final String tablaProducto= "create table producto(id_prod integer primary key autoincrement," +
-            "nombre_prod text, fecha_prod text, stock_prod integer, precio_prod double, URLimagen_prod text, descripcion_prod text, proveedor_prod text)"; // definiendo estructura de la tabla usuarios
+            "nombre_prod text, fecha_prod text, stock_prod integer, precio_prod double, URLimagen_prod text, descripcion_prod text);"; // definiendo estructura de la tabla usuarios
 
     private static final String tablaUsuario="create table usuario(id_usu integer primary key autoincrement, nombre_usu text, direccion_usu text," +
             "email_usu text,password_usu text,tipo_usu text);";//definir la estructura de la tabla de usuarios
@@ -74,7 +74,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     }
 
     //agregar producto (String nombre, String fecha, int stock, double precio, byte[] imagen,  String URLimagen, String descripcion)
-    public boolean agregarProducto(String nombre, String fecha, int stock, double precio, String URLimagen, String descripcion, String proveedor){
+    public boolean agregarProducto(String nombre, String fecha, int stock, double precio, String URLimagen, String descripcion){
         SQLiteDatabase miBdd=getWritableDatabase(); //instanciamos la BDD y llamamos a la BDD en el objeto miBdd
         if(miBdd != null){ //validar la BDD
             //realiza el proceso de insercion
@@ -276,6 +276,29 @@ public class BaseDatos extends SQLiteOpenHelper {
         return false; //retorno cuando no existe la BDD
     }
 
+    public Cursor obtenerUsuarios(){
+        SQLiteDatabase miBdd = getWritableDatabase(); //llamado a la bdd
+        //consultando los usuarios en la BDD y guardandolos en un cursor
+        Cursor usuarios=miBdd.rawQuery("select * from usuario", null);
+        if(usuarios.moveToFirst()){ //verifica que el objeto tenga resultados
+            miBdd.close(); //cerrando la conexion a la bdd
+            return usuarios; //retorna el cursos que contiene el listado de clientes
+        }else{
+            return null; //retorna nulo cuando no hay productos dentro de la tabla
+        }
 
+    }
+    public boolean eliminarUsuario(String id){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la bdd
+
+        if (miBdd != null){ //validando que la bdd realmente exista
+
+            //proceso de eliminacion
+            miBdd.execSQL("delete from usuario where id_usu="+id);
+            miBdd.close(); //cerrando la conexion a la bdd
+            return true; //retornando verdadero ya que el proceso de eliminacion fue exitoso
+        }
+        return false; //se retorna falso cuando no existe la bdd
+    }
 
 }

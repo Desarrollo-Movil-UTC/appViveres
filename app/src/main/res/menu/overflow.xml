@@ -15,5 +15,5 @@
         android:title="Proveedores" />
     <item
         android:id="@+id/cerrarSesion"
-        android:title="Cerrar Seción" />
+        android:title="Cerrar Sesión" />
 </menu>

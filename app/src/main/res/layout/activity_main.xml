@@ -65,7 +65,8 @@
                     android:ems="10"
                     android:hint="  Ingrese su email"
                     android:inputType="textEmailAddress"
-                    android:paddingLeft="10dp" />
+                    android:paddingLeft="10dp"
+                    android:textColor="#FFFF" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -80,7 +81,8 @@
                     android:ems="10"
                     android:hint="  Ingrese su contraseña"
                     android:inputType="textPassword"
-                    android:paddingLeft="10dp" />
+                    android:paddingLeft="10dp"
+                    android:textColor="#FFFF" />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -108,7 +110,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:backgroundTint="#eb5c5b"
-                    android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
                     android:onClick="abrirRegistro"
                     android:paddingTop="0sp"
                     android:paddingBottom="0sp"

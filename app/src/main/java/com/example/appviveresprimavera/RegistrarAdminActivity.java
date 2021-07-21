@@ -2,18 +2,18 @@ package com.example.appviveresprimavera;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
-public class RegistroActivity extends AppCompatActivity {
+public class RegistrarAdminActivity extends AppCompatActivity {
 
     EditText txt_nombreUsu, txt_direccionUsu, txt_emailUsu, txt_passwordUsu,txt_confirmacionUsu; // defiiniendo objetos para capturar datos de la vista
     BaseDatos miBdd;
@@ -22,26 +22,30 @@ public class RegistroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro);
+        setContentView(R.layout.activity_registrar_admin);
         txt_nombreUsu=(EditText)findViewById(R.id.txt_nombreUsu);
         txt_direccionUsu=(EditText)findViewById(R.id.txt_direccionUsu);
         txt_emailUsu=(EditText)findViewById(R.id.txt_emailUsu);
         txt_passwordUsu=(EditText)findViewById(R.id.txt_passwordUsu);
         txt_confirmacionUsu=(EditText)findViewById(R.id.txt_confirmacionUsu);
         miBdd=new BaseDatos(getApplicationContext());
+
+
     }
     public void cerrarPantallaRegistro(View vista){
+        Intent ventanaRegistroProducto = new Intent(getApplicationContext(), ListaUsuarioActivity.class);
+        startActivity(ventanaRegistroProducto);
         finish();
     }
 
-    public void registrarUsuario(View vista) {
+    public void registrarUsuarioAdmin(View vista) {
         // captura los calores ingresados por el usuario en variable Java de tipo String
         String nombre = txt_nombreUsu.getText().toString();
         String direccion = txt_direccionUsu.getText().toString();
         String email = txt_emailUsu.getText().toString();
         String password = txt_passwordUsu.getText().toString();
         String passwordConfirmada = txt_confirmacionUsu.getText().toString();
-        String tipo = "Cliente";
+        String tipo = "Administrador";
 
 
         if (nombre.isEmpty() || direccion.isEmpty() || email.isEmpty() || password.isEmpty() ) { //si algun campo esta vacio
@@ -70,6 +74,8 @@ public class RegistroActivity extends AppCompatActivity {
                                 // Cuando la condiccion es verdadera se realiza el proceso e insersion
                                 miBdd.agregarUsuario(nombre, direccion, email, password, tipo);//invocando al metodo agregarusuario del objeto miBdd para insertar datos en SQLite
                                 Toast.makeText(getApplicationContext(), "Usuario almacenado exitosamente", Toast.LENGTH_LONG).show();
+                                Intent ventanaMenu = new Intent(getApplicationContext(), ListaUsuarioActivity.class);
+                                startActivity(ventanaMenu);
                                 finish(); //finalizar actividad
                             } else {
                                 // Cuando la condiccion es falsa se presenta un mensaje de error

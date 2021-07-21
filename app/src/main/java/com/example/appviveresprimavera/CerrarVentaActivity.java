@@ -186,7 +186,6 @@ public class CerrarVentaActivity extends AppCompatActivity {
                     double subtotal = Double.parseDouble(subtotalString);
                     miBdd.agregarProductoPedidoVenta(producto,precio, cantidad, subtotal, idVenta);
                 }
-                Toast.makeText(getApplicationContext(), "salio todo bien", Toast.LENGTH_LONG).show();
                 //vacio el carrito porque ya se facturaron esos productos
                 limpiarCarrito(null);
                 //mensaje exitoso y cierre de la actividad

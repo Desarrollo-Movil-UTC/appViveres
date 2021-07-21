@@ -71,6 +71,7 @@
                         android:drawablePadding="10dp"
                         android:ems="10"
                         android:text="id Producto:"
+                        android:textColor="#FFFF"
                         android:textSize="18sp" />
 
                     <EditText
@@ -81,7 +82,8 @@
                         android:drawableStart="@android:drawable/ic_menu_edit"
                         android:drawablePadding="10dp"
                         android:ems="10"
-                        android:hint="Ingrese producto" />
+                        android:hint="Ingrese producto"
+                        android:textColor="#FFFF" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -94,12 +96,13 @@
                             android:layout_height="40dp"
                             android:layout_marginBottom="10dp"
                             android:clickable="true"
-                            android:drawablePadding="10dp"
                             android:drawableLeft="@android:drawable/ic_menu_day"
+                            android:drawablePadding="10dp"
                             android:ems="10"
                             android:focusable="false"
                             android:hint="Fecha de Caducidad"
-                            android:inputType="none" />
+                            android:inputType="none"
+                            android:textColor="#FFFF" />
 
                         <TextView
                             android:id="@+id/textView8"
@@ -132,6 +135,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="     Cantidad"
+                                android:textColor="#FFFF"
                                 android:textSize="15sp" />
 
                             <EditText
@@ -139,11 +143,12 @@
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:drawablePadding="10dp"
                                 android:drawableStart="@drawable/ic_baseline_add_shopping_cart_24"
+                                android:drawablePadding="10dp"
                                 android:ems="10"
                                 android:hint="0"
-                                android:inputType="number" />
+                                android:inputType="number"
+                                android:textColor="#FFFF" />
 
                         </LinearLayout>
 
@@ -157,6 +162,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="     Precio Unitario"
+                                android:textColor="#FFFF"
                                 android:textSize="15sp" />
 
                             <EditText
@@ -164,11 +170,12 @@
                                 android:layout_width="150dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="10dp"
-                                android:drawablePadding="10dp"
                                 android:drawableStart="@drawable/ic_baseline_add_shopping_cart_24"
+                                android:drawablePadding="10dp"
                                 android:ems="10"
                                 android:hint=" 00,00"
-                                android:inputType="numberDecimal" />
+                                android:inputType="numberDecimal"
+                                android:textColor="#FFFF" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -201,7 +208,8 @@
                                 android:drawablePadding="10dp"
                                 android:ems="10"
                                 android:paddingTop="5sp"
-                                android:text="URL imagen" />
+                                android:text="URL imagen"
+                                android:textColor="#FFFF" />
 
                             <Button
                                 android:id="@+id/btnFotoProductoEditar"
@@ -227,7 +235,8 @@
                                 android:drawablePadding="10dp"
                                 android:ems="10"
                                 android:hint=" Ingrese descripción"
-                                android:inputType="textMultiLine" />
+                                android:inputType="textMultiLine"
+                                android:textColor="#FFFF" />
                         </LinearLayout>
 
                     </LinearLayout>
