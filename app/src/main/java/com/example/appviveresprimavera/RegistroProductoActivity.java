@@ -72,10 +72,6 @@ public class RegistroProductoActivity extends AppCompatActivity implements View.
 
     Uri uri;
     File mi_foto;
-    
-    //Spinner
-    Spinner spinnerProveedores;
-    final ArrayList<Proveedor> listadoProveedores= new ArrayList<Proveedor>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,120 +100,6 @@ public class RegistroProductoActivity extends AppCompatActivity implements View.
         //Si no existe crea la carpeta donde se guardaran las fotos
         file.mkdirs();
 
-        //mapeo spinner
-        spinnerProveedores = (Spinner) findViewById(R.id.spinnerProveedores);
-        obtenerProveedores();
-    }
-
-    private void obtenerProveedores() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(ClienteApi.BASE_URL) //definiendo la URL base de la web
-                .addConverterFactory(GsonConverterFactory.create()).build(); //se convierte los datos a json
-        ClienteApi clienteApi=retrofit.create(ClienteApi.class);
-
-        Call<List<Proveedor>> clientesHTTP = clienteApi.obtenerTodos();
-
-        clientesHTTP.enqueue(new Callback<List<Proveedor>>() {
-            @Override
-            public void onResponse(Call<List<Proveedor>> call, Response<List<Proveedor>> response) {
-                try{
-
-                    String respuesta=response.body().toString();
-                    //Obtiene objeto.
-                    JSONObject jsonRespuesta = new JSONObject(respuesta);
-                    //Obtiene array Table.
-                    JSONArray jsonArreglo = jsonRespuesta.getJSONArray("Proveedor");
-                    //JSONArray jsonArreglo = new JSONArray(respuesta);
-                    //Itera sobre objetos contenidos en el Array Table.
-                    for (int i=0; i<jsonArreglo.length(); i++){
-                        Proveedor p = new Proveedor();
-                        p.setId(jsonArreglo.getJSONObject(i).getString("id"));
-                        p.setNombre(jsonArreglo.getJSONObject(i).getString("nombre"));
-                        listadoProveedores.add(p);
-                    }
-                    ArrayAdapter<Proveedor> a = new ArrayAdapter<Proveedor>(getApplicationContext(),android.R.layout.simple_spinner_dropdown_item,listadoProveedores);
-                    spinnerProveedores.setAdapter(a);
-                    spinnerProveedores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-
-                        }
-                    });
-
-                    /*
-                    if(response.isSuccessful()){
-                        List<Proveedor> proveedores=response.body(); //capturando el listado JSON de clientes
-                        String getResponse=response.body().toString();
-                        JSONArray jsonArray = new JSONArray(getResponse);
-                        for(int i=0; i<jsonArray.length(); i++){ //Recorriendo cada uno de los clientes obtenidos del ApiServer
-                            Proveedor proveedor = new Proveedor();
-                            JSONObject jsonObject=jsonArray.getJSONObject(i);
-                            proveedor.setNombre(jsonObject.getString("nombre"));
-                            listadoProveedores.add(proveedor);//Agregando los clientes en el ListView
-                            //Generando el Adaptador para poder presentarlos en el ListView correspondiente
-                            ArrayAdapter<Proveedor> adaptadorProv=new ArrayAdapter<>(getApplicationContext(),
-                                    android.R.layout.simple_list_item_1,listadoProveedores);
-                            spinnerProveedores.setAdapter(adaptadorProv); //Asignando el Adaptador en el ListView
-
-                            spinnerProveedores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-
-                                }
-                            });
-                        }
-                    }
-
-                     */
-                }catch (Exception ex){
-                    //Mensaje de advertencia cuando el ApiServer tiene algun error
-                    Toast.makeText(getApplicationContext(),"ERROR -> "+ex.toString(), Toast.LENGTH_LONG).show();
-                }
-
-                /*Log.i("Response", response.body().toString());
-                if(response.body() !=null){
-                    Log.i("Success", response.body().toString());
-                    try {
-
-                        String getResponse=response.body().toString();
-                        List<Proveedor> proveedores = new ArrayList<Proveedor>();
-                        JSONArray jsonArray = new JSONArray(getResponse);
-                        //listadoProveedores.add("Seleccione");
-                        for (int i=0; i<jsonArray.length(); i++){
-                            Proveedor proveedor = new Proveedor();
-                            JSONObject jsonObject=jsonArray.getJSONObject(i);
-                            //proveedor.setId(jsonObject.getInt("id"));
-                            proveedor.setNombre(jsonObject.getString("nombre"));
-                            listadoProveedores.add(proveedor);
-                        }
-
-                        ArrayAdapter<Proveedor> adaptadorClientes=new ArrayAdapter<>(getApplicationContext(),
-                                android.R.layout.simple_list_item_1,listadoProveedores);
-                        spinnerProveedores.setAdapter(adaptadorClientes); //Asignando el Adaptador en el ListView
-
-                    } catch (Exception ex){
-                        //Mensaje de advertencia cuando el ApiServer tiene algun error
-                        Toast.makeText(getApplicationContext(),"ERROR -> "+ex.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }
-
-                 */
-            }
-
-            @Override
-            public void onFailure(Call<List<Proveedor>> call, Throwable t) {
-
-            }
-        });
     }
 
     //Boton Cancelar
@@ -250,7 +132,6 @@ public class RegistroProductoActivity extends AppCompatActivity implements View.
         String precio = txtPrecioProducto.getText().toString();
         String URLfoto= txtFotoProducto.getText().toString();;
         String descripcion = txtDescripcionProducto.getText().toString();
-        String proveedor = "";
 
         //validaciones
         //campos vacios
@@ -270,7 +151,7 @@ public class RegistroProductoActivity extends AppCompatActivity implements View.
                     double precio2 = Double.parseDouble(precio);
                     if (precio2 > 0) { //precio2 <= 0
 
-                        miBdd.agregarProducto(nombre, fecha, cantidad2, precio2, URLfoto, descripcion, proveedor);
+                        miBdd.agregarProducto(nombre, fecha, cantidad2, precio2, URLfoto, descripcion);
                         LimpiarRegistroProducto(null); //limpia los campos y como es llamado desde la vista envia null
                         Toast.makeText(getApplicationContext(), "Producto registrado exitosamente",
                                 Toast.LENGTH_LONG).show();
