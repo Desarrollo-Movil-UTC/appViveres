@@ -24,7 +24,7 @@
 
       <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="671dp"
+          android:layout_height="570dp"
           android:background="@drawable/texto_form"
           android:orientation="vertical"
           android:padding="15dp">
@@ -32,7 +32,7 @@
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
-            android:layout_height="147dp" />
+            android:layout_height="90dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:text="Viveres Primavera"
             android:textAlignment="center"
             android:textColor="#596fa7"
-            android:textSize="60sp"
+            android:textSize="48sp"
             android:textStyle="bold" />
 
       </LinearLayout>
