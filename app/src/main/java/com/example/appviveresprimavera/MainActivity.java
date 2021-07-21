@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences.Editor editor; //objeto de tipo editor de sharedpreferences
     String llave = "sesion";
     String llavetipo = "tipoUsu";
+    String llaveIdUsuario = "tipoIdUsu";
     //**********************************
     EditText txtEmailLogin, txtPasswordLogin;
     BaseDatos bdd;
@@ -62,14 +63,16 @@ public class MainActivity extends AppCompatActivity {
             Intent ventanaProductos = new Intent(getApplicationContext(),ConsultarProductoActivity.class);
             startActivity(ventanaProductos);
         }
-
     }
 
     //metodo para guardar sesion
-    private void guardarSesion(boolean checked, String tipoUsu){
+    private void guardarSesion(boolean checked, String tipoUsu,String idUsu){
         editor.putBoolean(llave,checked); //editor que guardara la lave y el valor que tendra
         editor.apply(); //que guarde o aplique el cambio
         editor.putString(llavetipo, tipoUsu); //editor que guardara la lave y el valor que tendra
+        editor.apply(); //que guarde o aplique el cambio
+        //guardar el id del usuario logeado
+        editor.putString(llaveIdUsuario, idUsu); //editor que guardara la lave y el valor que tendra
         editor.apply(); //que guarde o aplique el cambio
     }
     //************************************************************************
@@ -83,12 +86,15 @@ public class MainActivity extends AppCompatActivity {
         //consultando el usuario en la bas de datos
         Cursor usuarioEncontrado = bdd.obtenerUsuarioPorEmailPassword(email,password);
         if(usuarioEncontrado!=null){
+            String idBdd = usuarioEncontrado.getString(0).toString();
             String nombreBdd= usuarioEncontrado.getString(1).toString();
             String tipoBdd= usuarioEncontrado.getString(5).toString();
             Toast.makeText(getApplicationContext(),"Bienvenido "+nombreBdd,Toast.LENGTH_LONG).show();
             finish();
             sesion = true;
-            guardarSesion(sesion,tipoBdd);
+            guardarSesion(sesion,tipoBdd,idBdd);
+            revisarSesion();
+            /*
             if (tipoBdd.equals("Cliente")){
                 //entrar a Pantallas Clientes
                 Intent ventanaProductos= new Intent(getApplicationContext(), ConsultarProductoActivity.class); // creando un intent para convocar a registroActivity
@@ -98,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent ventanaMenu= new Intent(getApplicationContext(), MenuActivity.class); // creando un intent para convocar a registroActivity
                 startActivity(ventanaMenu);
             }
+             */
 
         }else{
             //para el caso de que el usuarioEncontrado sea nulo se muestra un mensaje informativo

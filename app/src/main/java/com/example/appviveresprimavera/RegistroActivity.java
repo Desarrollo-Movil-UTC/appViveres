@@ -42,6 +42,7 @@ public class RegistroActivity extends AppCompatActivity {
         String email = txt_emailUsu.getText().toString();
         String password = txt_passwordUsu.getText().toString();
         String passwordConfirmada = txt_confirmacionUsu.getText().toString();
+        //String tipo = "Cliente";
         String tipo = "Administrador";
 
         if (nombre.isEmpty() || direccion.isEmpty() || email.isEmpty() || password.isEmpty() ) { //si algun campo esta vacio

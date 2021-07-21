@@ -15,14 +15,21 @@ import android.graphics.Bitmap;
 
 public class BaseDatos extends SQLiteOpenHelper {
     private static final String nombreBdd = "bdd_viveres"; //definiendo el nombre dela Bdd
-    private static final int versionBdd = 4; //definiendo la version de la BDD
+    private static final int versionBdd = 5; //definiendo la version de la BDD
 
     //estructura de la tabla productos
 
     private static final String tablaProducto= "create table producto(id_prod integer primary key autoincrement," +
             "nombre_prod text, fecha_prod text, stock_prod integer, precio_prod double, URLimagen_prod text, descripcion_prod text, proveedor_prod text)"; // definiendo estructura de la tabla usuarios
+
     private static final String tablaUsuario="create table usuario(id_usu integer primary key autoincrement, nombre_usu text, direccion_usu text," +
             "email_usu text,password_usu text,tipo_usu text);";//definir la estructura de la tabla de usuarios
+
+    private static final String tablaVenta = "create table venta(id_ven integer primary key autoincrement," +
+            "fecha_ven text,total_ven double,estado_ven text, fk_id_usu integer, foreign key (fk_id_usu) references usuario (id_usu))";
+
+    private static final String tablaDetalleVenta = "create table detalle_venta(id_det integer primary key autoincrement," +
+            "producto_det text, precio_det double, cantidad_det integer, subtotal_det double, fk_id_usu integer, foreign key(fk_id_usu) references usuario(id_usu))";
 
     /*
     private static final String tablaProducto= "create table producto(id_prod integer primary key autoincrement," +
@@ -39,6 +46,8 @@ public class BaseDatos extends SQLiteOpenHelper {
         // ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla
         db.execSQL(tablaProducto);
         db.execSQL(tablaUsuario);
+        db.execSQL(tablaVenta);
+        db.execSQL(tablaDetalleVenta);
 
     }
 
@@ -48,6 +57,10 @@ public class BaseDatos extends SQLiteOpenHelper {
         db.execSQL(tablaProducto); //Ejecucion del codigo para crear la tabla usuaios con su nueva estructura
         db.execSQL("DROP TABLE IF EXISTS usuario");// elimina de la version anterior de la tabla usuario
         db.execSQL(tablaUsuario);
+        db.execSQL("DROP TABLE IF EXISTS venta");// elimina de la version anterior de la tabla usuario
+        db.execSQL(tablaVenta);
+        db.execSQL("DROP TABLE IF EXISTS detalle_venta");// elimina de la version anterior de la tabla usuario
+        db.execSQL(tablaDetalleVenta);
     }
 
     //agregar producto (String nombre, String fecha, int stock, double precio, byte[] imagen,  String URLimagen, String descripcion)
@@ -104,6 +117,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
         return false; //se retorna falso cuando no existe la bdd
     }
+
     public boolean agregarUsuario(String nombre, String direccion, String email, String password, String tipo){
         SQLiteDatabase miBdd = getWritableDatabase(); // llamando a la base de datos en el objeto miBdd
         if(miBdd!=null){// validando que existan datos en la base de datos
@@ -114,6 +128,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
         return false;// retorno cuando no exista la base de datos
     }
+
     public Cursor obtenerUsuarioPorEmailPassword(String email, String password){
         SQLiteDatabase miBdd = getWritableDatabase(); // llamando a la base de datos en el objeto miBdd
         //Ejecutando la consulta y almacenando las resultados en el objeto usuario
@@ -128,6 +143,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
 
     }
+
     public Cursor obtenerProductoPorId(String id) {
         SQLiteDatabase miBdd = getWritableDatabase(); // llamado a la base de datos
         //crear un cursor donde inserto la consulta sql y almaceno los resultados en el objeto usuario
@@ -140,4 +156,85 @@ public class BaseDatos extends SQLiteOpenHelper {
             return null; //devuelvo null si no hay
         }
     }
+
+    //vender productos Carrito de Compras***********************************************Sandoval***********************
+
+
+    //Crear una Nueva Venta
+    public boolean crearVenta(String fecha, Double total, String estado, Integer usuario){
+        SQLiteDatabase miBdd =getWritableDatabase();
+        if (miBdd != null) { //validando que la base de datos exista(q no sea nula)
+            miBdd.execSQL("insert into venta(fecha_ven, total_ven, estado_ven, fk_id_usu)" +
+                    "values  ('"+fecha+"','"+total+"','"+estado+"','"+usuario+"');");
+            //ejecutando la sentencia de insercion de SQL
+            miBdd.close(); //cerrando la conexion a la base de datos.
+            return true; // valor de retorno si se inserto exitosamente.
+        }
+        return false; //retorno cuando no existe la BDD
+    }
+
+    //Metodo para consultar venta con el id del usuario
+    public Cursor obtenerVenta(Integer idUsuario){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
+        //consultando los productos en la base de datos y guardando en un cursor
+        Cursor venta_cliente=miBdd.rawQuery("select * from venta where fk_id_usu= '" +idUsuario+"' ;", null);
+        if (venta_cliente.moveToFirst()){ //validar si se encontro o no ventas
+            miBdd.close();
+            //retornar el cursor que contiene el listado de cliente
+            return venta_cliente; // retornar el cursor que contiene el listado de productos
+        }else{
+            return null; //se retorna nulo cuando no hay productos dentro de la tabla
+        }
+    }
+
+    //Metodo para actualizar la venta con el id del usuario
+    public boolean actualizarVentaUsuario( String fecha, Double total, String estado, Integer usuario){
+        SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
+        if(miBdd != null){
+            //proceso de actualizacion
+            miBdd.execSQL("update venta set fecha_ven='"+fecha+"', " +
+                    "total_ven='"+total+"', estado_ven='"+estado+"', where fk_id_usu ="+usuario);
+            miBdd.close(); //cerrando la conexion coon la BDD
+            return true; //retornamos verdero ya que el proceso de actulaicacion fue exitoso
+        }
+        return false; // se retorna falso cuando no existe la base de datos
+    }
+
+    //agregar un nuevo Producto al carrito
+    public boolean agregarProductoAlCarrito(String producto, Double precio, Integer cantidad, Double subtotal, Integer usuario){
+        SQLiteDatabase miBdd =getWritableDatabase();
+        if (miBdd != null) { //validando que la base de datos exista(q no sea nula)
+            miBdd.execSQL("insert into detalle_venta(producto_det, precio_det, cantidad_det,subtotal_det, fk_id_usu) " +
+                    "values  ('"+producto+"','"+precio+"','"+cantidad+"','"+subtotal+"','"+usuario+"');");
+            //ejecutando la sentencia de insercion de SQL
+            miBdd.close(); //cerrando la conexion a la base de datos.
+            return true; // valor de retorno si se inserto exitosamente.
+        }
+        return false; //retorno cuando no existe la BDD
+    }
+
+    //Metodo para consultar productos existentes en el carrito
+    public Cursor obtenerProductosCarrito(Integer idUsuario){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
+        //consultando los productos en la base de datos y guardando en un cursor
+        Cursor productos_carrito=miBdd.rawQuery("select * from detalle_venta where fk_id_usu= '" +idUsuario+"' ;", null);
+        if (productos_carrito.moveToFirst()){ //validar si se encontro o no clientes
+            miBdd.close();
+            //retornar el cursor que contiene el listado de cliente
+            return productos_carrito; // retornar el cursor que contiene el listado de productos
+        }else{
+            return null; //se retorna nulo cuando no hay productos dentro de la tabla
+        }
+    }
+
+    public boolean eliminarProductoCarrito(String id){
+        SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
+        if(miBdd != null){ //validando que la bdd realmente exista
+            miBdd.execSQL("delete from detalle_venta where id_det="+id); //ejecucion de la sentencia Sql para eliminar
+            miBdd.close();
+            return true; // //retornamos verdero ya que el proceso de eliminacion fue exitoso
+        }
+        return false; // se retorna falso cuando no existe la base de datos
+    }
+
 }

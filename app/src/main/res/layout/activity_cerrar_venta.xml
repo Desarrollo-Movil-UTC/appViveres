@@ -59,7 +59,7 @@
       <ListView
           android:id="@+id/lstProveedores"
           android:layout_width="match_parent"
-          android:layout_height="325dp" />
+          android:layout_height="253dp" />
 
       <TextView
           android:id="@+id/textView41"
@@ -134,6 +134,7 @@
           android:layout_height="50dp"
           android:backgroundTint="#87d469"
           android:drawableLeft="?attr/homeAsUpIndicator"
+          android:onClick="Salir"
           android:text="Salir"
           android:textColor="#FFFF"
           android:textSize="20sp"

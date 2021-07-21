@@ -64,10 +64,10 @@
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="333dp"
-                    android:layout_height="70dp"
+                    android:layout_height="61dp"
                     android:gravity="center_horizontal"
                     android:text="Detalle del Producto"
-                    android:textColor="#131E3A"
+                    android:textColor="#FFFF"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
@@ -89,7 +89,7 @@
                         <TextView
                             android:id="@+id/txt_detallePro"
                             android:layout_width="333sp"
-                            android:layout_height="160dp"
+                            android:layout_height="173dp"
                             android:gravity="center_horizontal"
                             android:hint="Aqui el detalle del producto"
                             android:textColor="#131E3A"
@@ -98,28 +98,22 @@
 
                     </LinearLayout>
                 </HorizontalScrollView>
-
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <EditText
                     android:id="@+id/txt_cantidadCompra"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginBottom="10dp"
-                    android:drawableStart="@drawable/ic_baseline_add_shopping_cart_24"
+                    android:background="@drawable/texto_form"
+                    android:drawableStart="@android:drawable/ic_input_add"
                     android:drawablePadding="10dp"
                     android:ems="10"
                     android:hint="Cantidad de la compra"
-                    android:inputType="textPersonName" />
+                    android:inputType="number" />
 
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:backgroundTint="#92304B"
-
-                    android:onClick="Cancelar"
-                    android:text="cancelar" />
 
                 <Button
                     android:id="@+id/button"
@@ -129,7 +123,21 @@
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="5dp"
                     android:backgroundTint="#4B9230"
-                    android:text="Comprar" />
+                    android:drawableLeft="@drawable/ic_baseline_add_shopping_cart_24"
+                    android:onClick="addCarrito"
+                    android:text="Añadir Al Carrito" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:backgroundTint="#92304B"
+
+                    android:drawableLeft="@android:drawable/ic_menu_revert"
+                    android:onClick="Cancelar"
+                    android:text="Regresar" />
 
             </LinearLayout>
         </LinearLayout>

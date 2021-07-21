@@ -21,6 +21,7 @@ public class MenuActivity extends AppCompatActivity {
     SharedPreferences preferences; //objeto de tipo sharedpreferences
     SharedPreferences.Editor editor; //objetito de tipo editor de sharedpreferences
     String llave = "sesion";
+    String llaveIdUsuario = "tipoIdUsu";
     //*****************************
 
     @Override
@@ -67,6 +68,8 @@ public class MenuActivity extends AppCompatActivity {
         }else if (id == R.id.cerrarSesion){
             //cerrar sesion
             editor.putBoolean(llave,false);
+            editor.apply();
+            editor.putString(llaveIdUsuario,"");
             editor.apply();
             Toast.makeText(getApplicationContext(), "Cerrar Sesión", Toast.LENGTH_LONG).show();
             //redirijo a la actividad de inicio de sesion y cierro el menu

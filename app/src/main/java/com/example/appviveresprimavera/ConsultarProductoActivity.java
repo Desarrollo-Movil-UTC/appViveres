@@ -26,6 +26,7 @@ public class ConsultarProductoActivity extends AppCompatActivity implements Item
     SharedPreferences preferences; //objeto de tipo sharedpreferences
     SharedPreferences.Editor editor; //objetito de tipo editor de sharedpreferences
     String llave = "sesion";
+    String llaveIdUsuario = "tipoIdUsu";
     //*****************************
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -96,10 +97,19 @@ public class ConsultarProductoActivity extends AppCompatActivity implements Item
         //cerrar sesion
         editor.putBoolean(llave,false);
         editor.apply();
+        editor.putString(llaveIdUsuario,"");
+        editor.apply();
         Toast.makeText(getApplicationContext(), "Sesión Cerrada", Toast.LENGTH_LONG).show();
         //redirijo a la actividad de inicio de sesion y cierro el menu
         Intent ventanaLogin=new Intent(getApplicationContext(),MainActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
         startActivity(ventanaLogin); //solicitamos que habra el formulario de login
+        finish(); //cerrando la activity
+    }
+
+    public void abrirCarrito(View vista){
+        //redirijo al carrito de compras
+        Intent ventanaCarrito=new Intent(getApplicationContext(),CerrarVentaActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
+        startActivity(ventanaCarrito); //solicitamos que habra el formulario de login
         finish(); //cerrando la activity
     }
 
