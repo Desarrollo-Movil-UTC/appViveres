@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -13,19 +15,27 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ConsultarProductoActivity extends AppCompatActivity
-implements ItemListenner{
-
+public class ConsultarProductoActivity extends AppCompatActivity implements ItemListenner{
     ArrayList<Producto>listDatos;
     RecyclerView rv_prod;
     Cursor productosObtenidos;
     BaseDatos miBdd;
     Producto producto;
-
+    //*****************************
+    //para inicio de sesion
+    SharedPreferences preferences; //objeto de tipo sharedpreferences
+    SharedPreferences.Editor editor; //objetito de tipo editor de sharedpreferences
+    String llave = "sesion";
+    String llaveIdUsuario = "tipoIdUsu";
+    //*****************************
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_producto);
+        //inicializar elementos shared
+        preferences = this.getSharedPreferences("sesiones", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        //*************************
         miBdd= new BaseDatos(getApplicationContext());
         listDatos= new ArrayList<>();
         rv_prod=(RecyclerView)findViewById(R.id.rv_prod);
@@ -34,8 +44,8 @@ implements ItemListenner{
         AdapterDatos adapter=new AdapterDatos(listDatos,this);
         rv_prod.setAdapter(adapter);
 
-
     }
+
     public void consultarProductos(){
         productosObtenidos = miBdd.obtenerProductos(); //consultando cursos y guardandolos en un cursor
         producto=null;
@@ -79,8 +89,29 @@ implements ItemListenner{
         ventanaActualizarProducto.putExtra("precioProd", precio);
         ventanaActualizarProducto.putExtra("fotoProd", foto);
         ventanaActualizarProducto.putExtra("descripcionProd", descripcion);
-
         startActivity(ventanaActualizarProducto);
         finish();
     }
+
+    public void cerrarSecion(View vista){
+        //cerrar sesion
+        editor.putBoolean(llave,false);
+        editor.apply();
+        editor.putString(llaveIdUsuario,"");
+        editor.apply();
+        Toast.makeText(getApplicationContext(), "Sesión Cerrada", Toast.LENGTH_LONG).show();
+        //redirijo a la actividad de inicio de sesion y cierro el menu
+        Intent ventanaLogin=new Intent(getApplicationContext(),MainActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
+        startActivity(ventanaLogin); //solicitamos que habra el formulario de login
+        finish(); //cerrando la activity
+    }
+
+    public void abrirCarrito(View vista){
+        //redirijo al carrito de compras
+        Intent ventanaCarrito=new Intent(getApplicationContext(),CerrarVentaActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
+        startActivity(ventanaCarrito); //solicitamos que habra el formulario de login
+        finish(); //cerrando la activity
+    }
+
+
 }
