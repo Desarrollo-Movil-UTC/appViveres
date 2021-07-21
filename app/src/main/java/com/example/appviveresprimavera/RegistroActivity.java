@@ -17,8 +17,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     EditText txt_nombreUsu, txt_direccionUsu, txt_emailUsu, txt_passwordUsu,txt_confirmacionUsu; // defiiniendo objetos para capturar datos de la vista
     BaseDatos miBdd;
-    RadioButton rbCliente, rbAdmin;
-    String tipoUsu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +28,14 @@ public class RegistroActivity extends AppCompatActivity {
         txt_emailUsu=(EditText)findViewById(R.id.txt_emailUsu);
         txt_passwordUsu=(EditText)findViewById(R.id.txt_passwordUsu);
         txt_confirmacionUsu=(EditText)findViewById(R.id.txt_confirmacionUsu);
-
         miBdd=new BaseDatos(getApplicationContext());
+
         tipoUsu="Cliente";
+
     }
     public void cerrarPantallaRegistro(View vista){
-
         finish();
     }
-
 
     public void registrarUsuario(View vista) {
         // captura los calores ingresados por el usuario en variable Java de tipo String
@@ -46,48 +44,47 @@ public class RegistroActivity extends AppCompatActivity {
         String email = txt_emailUsu.getText().toString();
         String password = txt_passwordUsu.getText().toString();
         String passwordConfirmada = txt_confirmacionUsu.getText().toString();
-        String tipo = tipoUsu.toString();
+        //String tipo = "Cliente";
+        String tipo = "Administrador";
 
-        if (nombre.isEmpty() || direccion.isEmpty() || email.isEmpty() || password.isEmpty() || tipo.isEmpty() ) { //si algun campo esta vacio
+        if (nombre.isEmpty() || direccion.isEmpty() || email.isEmpty() || password.isEmpty() ) { //si algun campo esta vacio
             Toast.makeText(getApplicationContext(), "Para continuar con el registro llene todos los campos solicitados",
                     Toast.LENGTH_LONG).show(); //mostrando mensaje de campo vacio a traves de un toast
         } else {
-
-                if (contieneSoloLetras(nombre) == false) {
-                    Toast.makeText(getApplicationContext(), "El nombre no debe contener numeros",
-                            Toast.LENGTH_LONG).show(); //mostrando error de nombre
+            if (contieneSoloLetras(nombre) == false) {
+                Toast.makeText(getApplicationContext(), "El nombre no debe contener numeros",
+                        Toast.LENGTH_LONG).show(); //mostrando error de nombre
+            } else {
+                Pattern pattern = Patterns.EMAIL_ADDRESS;
+                if (pattern.matcher(email).matches() == false) { //no cumple el correo
+                    Toast.makeText(getApplicationContext(), "Ingrese un Email Valido",
+                            Toast.LENGTH_LONG).show(); //mostrando correo invalido
                 } else {
-                            Pattern pattern = Patterns.EMAIL_ADDRESS;
-                            if (pattern.matcher(email).matches() == false) { //no cumple el correo
-                                Toast.makeText(getApplicationContext(), "Ingrese un Email Valido",
-                                        Toast.LENGTH_LONG).show(); //mostrando correo invalido
+                    if (password.length() < 8) {
+                        Toast.makeText(getApplicationContext(), "Ingrese una contraseña mínimo de 8 dígitos",
+                                Toast.LENGTH_LONG).show(); //mostrando mensaje de contraseña invalida
+                    } else {
+                        if (validarpassword(password) == false) {
+                            Toast.makeText(getApplicationContext(), "la contraseña debe tener numeros y letras",
+                                    Toast.LENGTH_LONG).show(); //mostrando mensaje de contraseña invalida
+                        } else {
+                            if (password.equals(passwordConfirmada)) {
+                                password = getMD5(password);
+                                // Cuando la condiccion es verdadera se realiza el proceso e insersion
+                                miBdd.agregarUsuario(nombre, direccion, email, password, tipo);//invocando al metodo agregarusuario del objeto miBdd para insertar datos en SQLite
+                                Toast.makeText(getApplicationContext(), "Usuario almacenado exitosamente", Toast.LENGTH_LONG).show();
+                                finish(); //finalizar actividad
                             } else {
-                                if (password.length() < 8) {
-                                    Toast.makeText(getApplicationContext(), "Ingrese una contraseña mínimo de 8 dígitos",
-                                            Toast.LENGTH_LONG).show(); //mostrando mensaje de contraseña invalida
-                                } else {
-                                    if (validarpassword(password) == false) {
-                                        Toast.makeText(getApplicationContext(), "la contraseña debe tener numeros y letras",
-                                                Toast.LENGTH_LONG).show(); //mostrando mensaje de contraseña invalida
-                                    } else {
-                                        if (password.equals(passwordConfirmada)) {
-                                            password = getMD5(password);
-                                            // Cuando la condiccion es verdadera se realiza el proceso e insersion
-                                            miBdd.agregarUsuario(nombre, direccion, email, password, tipo);//invocando al metodo agregarusuario del objeto miBdd para insertar datos en SQLite
-                                            Toast.makeText(getApplicationContext(), "Usuario almacenado exitosamente", Toast.LENGTH_LONG).show();
-                                            cerrarPantallaRegistro(null);
-                                        } else {
-                                            // Cuando la condiccion es falsa se presenta un mensaje de error
-                                            Toast.makeText(getApplicationContext(), "La contraseña ingresada no coincide", Toast.LENGTH_LONG).show();
-
-                                        }
-
-                                    }
-                                }
+                                // Cuando la condiccion es falsa se presenta un mensaje de error
+                                Toast.makeText(getApplicationContext(), "La contraseña ingresada no coincide", Toast.LENGTH_LONG).show();
                             }
                         }
                     }
                 }
+            }
+        }
+    }
+
 
     public boolean contieneSoloLetras(String cadena) {
         for (int x = 0; x < cadena.length(); x++) {

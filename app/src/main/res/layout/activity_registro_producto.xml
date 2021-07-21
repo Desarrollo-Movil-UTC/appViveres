@@ -71,7 +71,8 @@
                         android:drawableStart="@android:drawable/ic_menu_edit"
                         android:drawablePadding="10dp"
                         android:ems="10"
-                        android:hint="Ingrese producto" />
+                        android:hint="Ingrese producto"
+                        android:textColor="#FFFFFF" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -89,7 +90,8 @@
                             android:ems="10"
                             android:focusable="false"
                             android:hint="Fecha de Caducidad"
-                            android:inputType="none" />
+                            android:inputType="none"
+                            android:textColor="#FFFFFF" />
 
                         <TextView
                             android:id="@+id/textView8"
@@ -133,7 +135,8 @@
                                 android:drawablePadding="10dp"
                                 android:ems="10"
                                 android:hint="0"
-                                android:inputType="number" />
+                                android:inputType="number"
+                                android:textColor="#FFFFFF" />
 
                         </LinearLayout>
 
@@ -158,7 +161,8 @@
                                 android:drawablePadding="10dp"
                                 android:ems="10"
                                 android:hint=" 00,00"
-                                android:inputType="numberDecimal" />
+                                android:inputType="numberDecimal"
+                                android:textColor="#FFFFFF" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -191,7 +195,8 @@
                                 android:drawablePadding="10dp"
                                 android:ems="10"
                                 android:paddingTop="5sp"
-                                android:text="URL imagen" />
+                                android:text="URL imagen"
+                                android:textColor="#FFFFFF" />
 
                             <Button
                                 android:id="@+id/btnFotoProducto"
@@ -217,7 +222,8 @@
                                 android:drawablePadding="10dp"
                                 android:ems="10"
                                 android:hint=" Ingrese descripción"
-                                android:inputType="textMultiLine" />
+                                android:inputType="textMultiLine"
+                                android:textColor="#FFFFFF" />
 
                             <Spinner
                                 android:id="@+id/spinnerProveedores"

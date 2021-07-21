@@ -66,7 +66,7 @@
                             android:layout_height="70dp"
                             android:gravity="center_horizontal"
                             android:text="Registro de Usuario"
-                            android:textColor="#131E3A"
+                            android:textColor="#FFFFFF"
                             android:textSize="30sp"
                             android:textStyle="bold" />
 
@@ -79,7 +79,8 @@
                             android:drawablePadding="10dp"
                             android:ems="10"
                             android:hint="Nombre"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF" />
 
                         <EditText
                             android:id="@+id/txt_direccionUsu"
@@ -90,7 +91,8 @@
                             android:drawablePadding="10dp"
                             android:ems="10"
                             android:hint="Direccion"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:textColor="#FFFFFF" />
 
                         <EditText
                             android:id="@+id/txt_emailUsu"
@@ -101,7 +103,8 @@
                             android:drawablePadding="10dp"
                             android:ems="10"
                             android:hint="Correo Electronico"
-                            android:inputType="textEmailAddress" />
+                            android:inputType="textEmailAddress"
+                            android:textColor="#FFFFFF" />
 
                         <EditText
                             android:id="@+id/txt_passwordUsu"
@@ -112,7 +115,8 @@
                             android:drawablePadding="10dp"
                             android:ems="10"
                             android:hint="Contraseña"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:textColor="#FFFFFF" />
 
                         <EditText
                             android:id="@+id/txt_confirmacionUsu"
@@ -123,7 +127,8 @@
                             android:drawablePadding="10dp"
                             android:ems="10"
                             android:hint="Confirme su Contraseña"
-                            android:inputType="textPassword" />
+                            android:inputType="textPassword"
+                            android:textColor="#FFFFFF" />
 
                         <Button
                             android:id="@+id/button"
