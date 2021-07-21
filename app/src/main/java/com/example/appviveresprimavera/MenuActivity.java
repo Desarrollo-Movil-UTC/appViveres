@@ -47,9 +47,9 @@ public class MenuActivity extends AppCompatActivity {
             //proceso de cada boton
             Toast.makeText(this, "Gestión de Usuarios" ,Toast.LENGTH_LONG).show();
             //abriendo la ventana de gestion de curso
-            // Intent ventanaCursos=new Intent(getApplicationContext(),RegistroCursosActivity.class);
-            //startActivity(ventanaCursos); //solicitamos que habra el menu
-            //finish(); //cerrando la activity
+            Intent ventanaCursos=new Intent(getApplicationContext(),ListaUsuarioActivity.class);
+            startActivity(ventanaCursos); //solicitamos que habra el menu
+            finish(); //cerrando la activity
 
         }else if(id == R.id.gestionProductos) {
 
