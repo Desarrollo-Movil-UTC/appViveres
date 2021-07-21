@@ -101,6 +101,7 @@
             android:layout_height="50dp"
             android:backgroundTint="#f55b59"
             android:drawableLeft="@android:drawable/ic_menu_save"
+            android:onClick="comprarProductosCarrito"
             android:text="Comprar"
             android:textColor="#FFFFFF"
             android:textSize="18sp"

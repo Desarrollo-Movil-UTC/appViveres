@@ -15,7 +15,7 @@ import android.graphics.Bitmap;
 
 public class BaseDatos extends SQLiteOpenHelper {
     private static final String nombreBdd = "bdd_viveres"; //definiendo el nombre dela Bdd
-    private static final int versionBdd = 5; //definiendo la version de la BDD
+    private static final int versionBdd = 6; //definiendo la version de la BDD
 
     //estructura de la tabla productos
 
@@ -25,11 +25,16 @@ public class BaseDatos extends SQLiteOpenHelper {
     private static final String tablaUsuario="create table usuario(id_usu integer primary key autoincrement, nombre_usu text, direccion_usu text," +
             "email_usu text,password_usu text,tipo_usu text);";//definir la estructura de la tabla de usuarios
 
+    //esta se esta usando como carrito
+    private static final String tablaDetalleVenta = "create table detalle_venta(id_det integer primary key autoincrement," +
+            "producto_det text, precio_det double, cantidad_det integer, subtotal_det double, fk_id_usu integer, foreign key(fk_id_usu) references usuario(id_usu))";
+
     private static final String tablaVenta = "create table venta(id_ven integer primary key autoincrement," +
             "fecha_ven text,total_ven double,estado_ven text, fk_id_usu integer, foreign key (fk_id_usu) references usuario (id_usu))";
 
-    private static final String tablaDetalleVenta = "create table detalle_venta(id_det integer primary key autoincrement," +
-            "producto_det text, precio_det double, cantidad_det integer, subtotal_det double, fk_id_usu integer, foreign key(fk_id_usu) references usuario(id_usu))";
+    //esta se esta usando como detalle del pedido y esta relacinada con la venta para que esta pueda ser despachada
+    private static final String tablaDetallePedidoVenta = "create table detalle_pedido_venta(id_det_ped integer primary key autoincrement," +
+            "producto_det_ped text, precio_det_ped double, cantidad_det_ped integer, subtotal_det_ped double, fk_id_venta integer, foreign key(fk_id_venta) references venta(id_ven))";
 
     /*
     private static final String tablaProducto= "create table producto(id_prod integer primary key autoincrement," +
@@ -46,8 +51,9 @@ public class BaseDatos extends SQLiteOpenHelper {
         // ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla
         db.execSQL(tablaProducto);
         db.execSQL(tablaUsuario);
+        db.execSQL(tablaDetalleVenta); //carrito
         db.execSQL(tablaVenta);
-        db.execSQL(tablaDetalleVenta);
+        db.execSQL(tablaDetallePedidoVenta);//detalle de la venta o pedido
 
     }
 
@@ -57,10 +63,14 @@ public class BaseDatos extends SQLiteOpenHelper {
         db.execSQL(tablaProducto); //Ejecucion del codigo para crear la tabla usuaios con su nueva estructura
         db.execSQL("DROP TABLE IF EXISTS usuario");// elimina de la version anterior de la tabla usuario
         db.execSQL(tablaUsuario);
-        db.execSQL("DROP TABLE IF EXISTS venta");// elimina de la version anterior de la tabla usuario
-        db.execSQL(tablaVenta);
+        //carrito
         db.execSQL("DROP TABLE IF EXISTS detalle_venta");// elimina de la version anterior de la tabla usuario
         db.execSQL(tablaDetalleVenta);
+        db.execSQL("DROP TABLE IF EXISTS venta");// elimina de la version anterior de la tabla usuario
+        db.execSQL(tablaVenta);
+        //detalle de la venta
+        db.execSQL("DROP TABLE IF EXISTS detalle_pedido_venta");// elimina de la version anterior de la tabla usuario
+        db.execSQL(tablaDetallePedidoVenta);
     }
 
     //agregar producto (String nombre, String fecha, int stock, double precio, byte[] imagen,  String URLimagen, String descripcion)
@@ -173,6 +183,20 @@ public class BaseDatos extends SQLiteOpenHelper {
         return false; //retorno cuando no existe la BDD
     }
 
+    //Metodo para consultar la ultima venta creada
+    public Cursor obtenerUltimaVenta(){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
+        //consultando las ventas en la base de datos y guardando en un cursor
+        Cursor venta=miBdd.rawQuery("select * from venta where id_ven = (select max(id_ven) from venta);", null);
+        if (venta.moveToFirst()){ //validar si se encontro o no datos
+            miBdd.close();
+            //retornar el cursor que contiene el listado de jugadores
+            return venta; // retornar el cursor que contiene la ultima venta registrada
+        }else{
+            return null; //se retorna nulo cuando no hay la venta dentro de la tabla
+        }
+    }
+
     //Metodo para consultar venta con el id del usuario
     public Cursor obtenerVenta(Integer idUsuario){
         SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
@@ -236,5 +260,22 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
         return false; // se retorna falso cuando no existe la base de datos
     }
+
+    //****************************************crud del detalle de la venta*************************
+    //agregar un nuevo Producto al carrito
+
+    public boolean agregarProductoPedidoVenta(String producto, Double precio, Integer cantidad, Double subtotal, Integer venta){
+        SQLiteDatabase miBdd =getWritableDatabase();
+        if (miBdd != null) { //validando que la base de datos exista(q no sea nula)
+            miBdd.execSQL("insert into detalle_pedido_venta(producto_det_ped, precio_det_ped, cantidad_det_ped,subtotal_det_ped, fk_id_venta) " +
+                    "values  ('"+producto+"','"+precio+"','"+cantidad+"','"+subtotal+"','"+venta+"');");
+            //ejecutando la sentencia de insercion de SQL
+            miBdd.close(); //cerrando la conexion a la base de datos.
+            return true; // valor de retorno si se inserto exitosamente.
+        }
+        return false; //retorno cuando no existe la BDD
+    }
+
+
 
 }

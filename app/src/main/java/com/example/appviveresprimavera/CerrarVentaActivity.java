@@ -16,7 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /*
 @autores:Sandoval,sanchez,Robayo
@@ -38,7 +41,7 @@ public class CerrarVentaActivity extends AppCompatActivity {
     ArrayList<String> listaproductosCarrito = new ArrayList<>(); //cargar los datos de la BDD
     Cursor productosObtenidos;
     Double calcularTotal= 0.0;
-
+    Cursor ventaObtenida; //declaracion global para usarla desde culquier metodo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +55,7 @@ public class CerrarVentaActivity extends AppCompatActivity {
         miBdd=new BaseDatos(getApplicationContext());
         lstProdutosCarrito=(ListView) findViewById(R.id.lstProdutosCarrito);
         consultarProductosCarrito();
-
-        if (productosObtenidos == null){
-            txtTotal.setText("0.0");
-        }else{
-            total();
-            txtTotal.setText(calcularTotal.toString());
-        }
+        total();
 
         //evento cuando de clic a un producto
         //generar acciones cuando se da click sore un elemento de la lista de cursos
@@ -98,18 +95,24 @@ public class CerrarVentaActivity extends AppCompatActivity {
                 //crear un adaptador para presentar los datos del listado (Java) en una lista simple (XML)
                 ArrayAdapter<String> adaptadorCursos = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listaproductosCarrito);
                 lstProdutosCarrito.setAdapter(adaptadorCursos); //presentando el adaptador dentro del listview
+
             }while(productosObtenidos.moveToNext()); //validando si aun existen cursos dentro del cursor
         }else{
+            lstProdutosCarrito.invalidateViews();
             Toast.makeText(getApplicationContext(), "No existen productos en el carrito", Toast.LENGTH_LONG).show();
         }
     }
 
     public void total(){
         calcularTotal= 0.0;
-        for (int i=0; i< productosObtenidos.getCount();i++){
-            productosObtenidos.moveToPosition(i);
-            Double subtotal= productosObtenidos.getDouble(4);
-            calcularTotal=calcularTotal+subtotal;
+        if (productosObtenidos == null){
+            txtTotal.setText("0.0");
+        }else{
+            for (int i=0; i< productosObtenidos.getCount();i++){
+                productosObtenidos.moveToPosition(i);
+                Double subtotal= productosObtenidos.getDouble(4);
+                calcularTotal=calcularTotal+subtotal;
+            }
         }
     }
 
@@ -148,10 +151,56 @@ public class CerrarVentaActivity extends AppCompatActivity {
                 productosObtenidos.moveToPosition(i);
                 String id = productosObtenidos.getString(0);
                 miBdd.eliminarProductoCarrito(id);
-                consultarProductosCarrito();
             }
+            Double calcularTotal= 0.0;
+            txtTotal.setText(calcularTotal.toString());
+            consultarProductosCarrito();
         }
 
     }
+
+    public void comprarProductosCarrito(View vista) {
+        if (productosObtenidos == null){
+            txtTotal.setText("0.0");
+            Toast.makeText(getApplicationContext(),"Carrito Vacio No se puede generar una Compra" ,Toast.LENGTH_SHORT).show();
+        }else{
+            //Crear la venta
+            String estado = "Solicitado";
+            DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
+            String fecha = df.format(Calendar.getInstance().getTime());
+            int idUsu = Integer.parseInt(idUsuario);
+            miBdd.crearVenta(fecha,calcularTotal,estado,idUsu);
+            ventaObtenida = miBdd.obtenerUltimaVenta();
+            if (ventaObtenida != null ){ // si es diferrente de null
+                //proceso cuando recupera el registro de la Bdd
+                int idVenta =ventaObtenida.getInt(0); //capturando el id de la venta creada
+                //pasar los productos del carrito al detalle de venta o pedido
+                for (int i=0; i < productosObtenidos.getCount();i++){
+                    productosObtenidos.moveToPosition(i);
+                    String producto = productosObtenidos.getString(1).toString();
+                    String precioString = productosObtenidos.getString(2).toString();
+                    String cantidadString= productosObtenidos.getString(3).toString();
+                    String subtotalString= productosObtenidos.getString(4).toString();
+                    double precio = Double.parseDouble(precioString);
+                    int cantidad = Integer.parseInt(cantidadString);
+                    double subtotal = Double.parseDouble(subtotalString);
+                    miBdd.agregarProductoPedidoVenta(producto,precio, cantidad, subtotal, idVenta);
+                }
+                Toast.makeText(getApplicationContext(), "salio todo bien", Toast.LENGTH_LONG).show();
+                //vacio el carrito porque ya se facturaron esos productos
+                limpiarCarrito(null);
+                //mensaje exitoso y cierre de la actividad
+                Toast.makeText(getApplicationContext(), "Pedido Solicitado", Toast.LENGTH_LONG).show(); //mostrando mensaje de usuario registrado
+                finish();
+                Intent vistaProductos=new Intent(getApplicationContext(),ConsultarProductoActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
+                startActivity(vistaProductos); //solicitamos que habra el formulario de login
+
+            }else{
+                Toast.makeText(getApplicationContext(),"No se encontro la venta creada",Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+
 
 }
