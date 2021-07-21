@@ -139,5 +139,19 @@ public class CerrarVentaActivity extends AppCompatActivity {
         cuadroDialogo.show(); //mostrando en pantalla el cuadro de dialogo
     }
 
+    public void limpiarCarrito(View vista){
+        if (productosObtenidos == null){
+            txtTotal.setText("0.0");
+            Toast.makeText(getApplicationContext(),"Carrito Vacio" ,Toast.LENGTH_SHORT).show();
+        }else{
+            for (int i=0; i < productosObtenidos.getCount();i++){
+                productosObtenidos.moveToPosition(i);
+                String id = productosObtenidos.getString(0);
+                miBdd.eliminarProductoCarrito(id);
+                consultarProductosCarrito();
+            }
+        }
+
+    }
 
 }

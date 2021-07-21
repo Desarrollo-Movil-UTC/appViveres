@@ -118,6 +118,7 @@
             android:layout_height="50dp"
             android:backgroundTint="#F7F7F6"
             android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
+            android:onClick="limpiarCarrito"
             android:text="Limpiar"
             android:textColor="#e55854"
             android:textSize="18sp"
