@@ -218,22 +218,6 @@
                                 android:ems="10"
                                 android:hint=" Ingrese descripción"
                                 android:inputType="textMultiLine" />
-
-                            <Spinner
-                                android:id="@+id/spinnerProveedores"
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:ems = "10"
-                                android:drawableStart="?attr/actionModePasteDrawable"
-                                android:paddingLeft="20sp"
-                                android:textSize="22sp"/>
-
-                            <TextView
-                                android:id="@+id/txtCursoSeleccionado"
-                                android:layout_width="match_parent"
-                                android:layout_height="8dp"
-                                android:text="Curso seleccionado:"
-                                android:visibility="invisible" />
                         </LinearLayout>
 
                     </LinearLayout>
