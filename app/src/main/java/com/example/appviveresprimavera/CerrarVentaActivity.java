@@ -56,7 +56,7 @@ public class CerrarVentaActivity extends AppCompatActivity {
         lstProdutosCarrito=(ListView) findViewById(R.id.lstProdutosCarrito);
         consultarProductosCarrito();
         total();
-
+        txtTotal.setText(calcularTotal.toString());
         //evento cuando de clic a un producto
         //generar acciones cuando se da click sore un elemento de la lista de cursos
         lstProdutosCarrito.setOnItemClickListener(new AdapterView.OnItemClickListener() {

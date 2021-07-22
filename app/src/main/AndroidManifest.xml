@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.appviveresprimavera">
+    package="com.example.appviveresprimavera" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -12,8 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppViveresPrimavera"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".RegistrarAdminActivity"></activity>
+        android:usesCleartextTraffic="true" >
+        <activity android:name=".VerDespacharVentasActivity" >
+        </activity>
+        <activity android:name=".RegistrarAdminActivity" />
         <activity android:name=".ListaUsuarioActivity" />
         <activity android:name=".ActualizarEliminarProductoActivity" />
         <activity android:name=".RegistroProductoActivity" />
@@ -26,7 +28,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".CerrarVentaActivity" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".BienvenidaActivity">
+        <activity android:name=".BienvenidaActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

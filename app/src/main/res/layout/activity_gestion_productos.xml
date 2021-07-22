@@ -112,10 +112,12 @@
                     android:padding="15dp">
 
                     <ListView
-                        android:id="@+id/listProductos"
+                        android:id="@+id/listventas"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:backgroundTint="#9E9797" />
+
+
                 </LinearLayout>
 
             </LinearLayout>

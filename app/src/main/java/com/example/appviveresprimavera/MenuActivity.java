@@ -60,6 +60,10 @@ public class MenuActivity extends AppCompatActivity {
 
         }else if(id == R.id.gestionVentas) {
             Toast.makeText(this, "Gestión de Ventas ", Toast.LENGTH_LONG).show();
+            Intent ventanagestionVentas=new Intent(getApplicationContext(),VerDespacharVentasActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
+            startActivity(ventanagestionVentas); //solicitamos que habra el formulario de login
+            finish(); //cerrando la activity
+
         }else if (id == R.id.datosProveedores){
             Toast.makeText(this, "Datos Proveedores ", Toast.LENGTH_LONG).show();
             Intent ventanaProveedores=new Intent(getApplicationContext(),ProveedoresActivitty.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login

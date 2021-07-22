@@ -1,9 +1,7 @@
 package com.example.appviveresprimavera;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -39,7 +37,7 @@ public class GestionProductosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gestion_productos);
 
         //mapeo de elementos
-        listProductos = (ListView) findViewById(R.id.listProductos);
+        listProductos = (ListView) findViewById(R.id.listventas);
 
         //instanciar /construir la base de datos en el objeto mi bdd
         miBdd= new BaseDatos(getApplicationContext());

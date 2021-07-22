@@ -198,10 +198,10 @@ public class BaseDatos extends SQLiteOpenHelper {
     }
 
     //Metodo para consultar venta con el id del usuario
-    public Cursor obtenerVenta(Integer idUsuario){
+    public Cursor obtenerVenta(String estado){
         SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
         //consultando los productos en la base de datos y guardando en un cursor
-        Cursor venta_cliente=miBdd.rawQuery("select * from venta where fk_id_usu= '" +idUsuario+"' ;", null);
+        Cursor venta_cliente=miBdd.rawQuery("select * from venta where estado_ven= '" +estado+"' ;", null);
         if (venta_cliente.moveToFirst()){ //validar si se encontro o no ventas
             miBdd.close();
             //retornar el cursor que contiene el listado de cliente
