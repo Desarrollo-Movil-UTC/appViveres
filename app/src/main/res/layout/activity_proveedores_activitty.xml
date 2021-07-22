@@ -26,6 +26,20 @@
         android:textSize="30dp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/button4"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:backgroundTint="#87d469"
+        android:drawableLeft="?attr/homeAsUpIndicator"
+        android:onClick="salirListaProveedores"
+        android:text="Regresar"
+        android:textColor="#FFFF"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        app:iconPadding="2dp" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,19 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/button4"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:backgroundTint="#87d469"
-        android:drawableLeft="?attr/homeAsUpIndicator"
-        android:onClick="salirListaProveedores"
-        android:text="Salir"
-        android:textColor="#FFFF"
-        android:textSize="20sp"
-        app:cornerRadius="20dp"
-        app:iconPadding="2dp" />
+
 
 
 </LinearLayout>
