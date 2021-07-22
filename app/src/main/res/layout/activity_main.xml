@@ -65,8 +65,7 @@
                     android:ems="10"
                     android:hint="  Ingrese su email"
                     android:inputType="textEmailAddress"
-                    android:paddingLeft="10dp"
-                    android:textColor="#FFFF" />
+                    android:paddingLeft="10dp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -81,8 +80,7 @@
                     android:ems="10"
                     android:hint="  Ingrese su contraseña"
                     android:inputType="textPassword"
-                    android:paddingLeft="10dp"
-                    android:textColor="#FFFF" />
+                    android:paddingLeft="10dp" />
 
                 <TextView
                     android:id="@+id/textView7"
