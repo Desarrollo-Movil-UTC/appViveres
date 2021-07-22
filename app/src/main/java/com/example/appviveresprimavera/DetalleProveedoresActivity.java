@@ -27,7 +27,7 @@ public class DetalleProveedoresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_proveedores);
         //Mapeo de elementos
-        txtIdP=(TextView) findViewById(R.id.txtTotal);
+        txtIdP=(TextView) findViewById(R.id.txtTotalVenta);
         txtNombreP=(TextView) findViewById(R.id.txtNombre);
         txtDescripcionP=(TextView) findViewById(R.id.txtDescripcion);
         txtTelefonoP=(TextView) findViewById(R.id.txtTelefono);

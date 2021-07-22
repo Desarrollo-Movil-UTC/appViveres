@@ -57,7 +57,7 @@
                 android:layout_height="9dp" />
 
             <TextView
-                android:id="@+id/txtTotal"
+                android:id="@+id/txtTotalVenta"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/texto_form"

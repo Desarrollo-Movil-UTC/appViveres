@@ -57,7 +57,7 @@
       </LinearLayout>
 
       <ListView
-          android:id="@+id/lstProdutosCarrito"
+          android:id="@+id/lstProdutosVenta"
           android:layout_width="match_parent"
           android:layout_height="253dp" />
 
@@ -72,7 +72,7 @@
           android:textStyle="bold" />
 
       <TextView
-          android:id="@+id/txtTotal"
+          android:id="@+id/txtTotalVenta"
           android:layout_width="match_parent"
           android:layout_height="40dp"
           android:background="@drawable/texto_form"

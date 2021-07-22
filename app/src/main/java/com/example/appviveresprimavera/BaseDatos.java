@@ -154,19 +154,6 @@ public class BaseDatos extends SQLiteOpenHelper {
 
     }
 
-    public Cursor obtenerProductoPorId(String id) {
-        SQLiteDatabase miBdd = getWritableDatabase(); // llamado a la base de datos
-        //crear un cursor donde inserto la consulta sql y almaceno los resultados en el objeto usuario
-        Cursor ProductoDetalle = miBdd.rawQuery("select * from curso where  id_cur='"+id+"';", null);
-        //validar si existe o no la consulta
-        if (ProductoDetalle.moveToFirst()) { //metodo movetofirst nueve al primer elemento encontrado si hay el usuario
-            return ProductoDetalle; //retornamos los datos encontrados
-        } else {
-            //no se encuentra informacion del producto -> no existe
-            return null; //devuelvo null si no hay
-        }
-    }
-
     //vender productos Carrito de Compras***********************************************Sandoval***********************
 
 
@@ -211,18 +198,34 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
     }
 
-    //Metodo para actualizar la venta con el id del usuario
-    public boolean actualizarVentaUsuario( String fecha, Double total, String estado, Integer usuario){
+    //Metodo para consultar productos existentes en la venta
+    public Cursor obtenerProductosVenta(Integer idVenta){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
+        //consultando los productos en la base de datos y guardando en un cursor
+        Cursor productos_carrito=miBdd.rawQuery("select * from detalle_pedido_venta where fk_id_venta= '" +idVenta+"' ;", null);
+        if (productos_carrito.moveToFirst()){ //validar si se encontro o no clientes
+            miBdd.close();
+            //retornar el cursor que contiene el listado de productos de la venta
+            return productos_carrito; // retornar el cursor que contiene el listado de productos
+        }else{
+            return null; //se retorna nulo cuando no hay productos dentro de la tabla
+        }
+    }
+
+    //metodo para actualizar
+    public boolean actualizarVentaId(String fecha, Double total, String estado, Integer idUsuario, Integer id){
         SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
         if(miBdd != null){
             //proceso de actualizacion
             miBdd.execSQL("update venta set fecha_ven='"+fecha+"', " +
-                    "total_ven='"+total+"', estado_ven='"+estado+"', where fk_id_usu ="+usuario);
+                    "total_ven='"+total+"', estado_ven='"+estado+"', " +
+                    "fk_id_usu='"+idUsuario+"' where id_ven="+id);
             miBdd.close(); //cerrando la conexion coon la BDD
             return true; //retornamos verdero ya que el proceso de actulaicacion fue exitoso
         }
         return false; // se retorna falso cuando no existe la base de datos
     }
+
 
     //agregar un nuevo Producto al carrito
     public boolean agregarProductoAlCarrito(String producto, Double precio, Integer cantidad, Double subtotal, Integer usuario){
@@ -261,7 +264,7 @@ public class BaseDatos extends SQLiteOpenHelper {
         return false; // se retorna falso cuando no existe la base de datos
     }
 
-    //****************************************crud del detalle de la venta*************************
+
     //agregar un nuevo Producto al carrito
 
     public boolean agregarProductoPedidoVenta(String producto, Double precio, Integer cantidad, Double subtotal, Integer venta){
@@ -276,6 +279,32 @@ public class BaseDatos extends SQLiteOpenHelper {
         return false; //retorno cuando no existe la BDD
     }
 
+    public Cursor obtenerProductoPorNombre(String nombre_pro) {
+        SQLiteDatabase miBdd = getWritableDatabase(); // llamado a la base de datos
+        //crear un cursor donde inserto la consulta sql y almaceno los resultados en el objeto usuario
+        Cursor producto = miBdd.rawQuery("select * from producto where  nombre_prod='"+nombre_pro+"';", null);
+        //validar si existe o no la consulta
+        if (producto.moveToFirst()) { //metodo movetofirst nueve al primer elemento encontrado si hay el usuario
+            return producto; //retornamos los datos encontrados
+        } else {
+            //no se encuentra informacion del producto -> no existe
+            return null; //devuelvo null si no hay
+        }
+    }
+
+    //Metodo para actualizar el stock del producto despachado
+    public boolean actualizarStockProductoId(Integer stock, Integer id){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la bdd
+        if (miBdd != null){ //validando que la bdd realmente exista
+            //proceso de actualizacion
+            miBdd.execSQL("update producto set stock_prod='"+stock+"' where id_prod ="+id);
+            miBdd.close(); //cerrando la conexion a la bdd
+            return true; //retornando verdadero ya que el procesos de actualizacion fue exitoso
+        }
+        return false; //se retorna falso cuando no existe la bdd
+    }
+
+    //****************************************crud del Usuarios *************************
     public Cursor obtenerUsuarios(){
         SQLiteDatabase miBdd = getWritableDatabase(); //llamado a la bdd
         //consultando los usuarios en la BDD y guardandolos en un cursor
@@ -288,6 +317,20 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
 
     }
+    //Metodo para consultar productos existentes en el carrito
+    public Cursor obtenerUsuarioId(Integer idUsuario){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
+        //consultando los productos en la base de datos y guardando en un cursor
+        Cursor cliente=miBdd.rawQuery("select * from usuario where id_usu = '" +idUsuario+"' ;", null);
+        if (cliente.moveToFirst()){ //validar si se encontro o no clientes
+            miBdd.close();
+            //retornar el cursor que contiene el listado de cliente
+            return cliente; // retornar el cursor que contiene el listado de productos
+        }else{
+            return null; //se retorna nulo cuando no hay productos dentro de la tabla
+        }
+    }
+
     public boolean eliminarUsuario(String id){
         SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la bdd
 

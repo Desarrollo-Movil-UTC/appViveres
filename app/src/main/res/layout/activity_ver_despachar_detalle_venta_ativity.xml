@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VerDespacharDetalleVentaAtivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/color_fondo"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="531dp"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="245dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_add_shopping_cart_24"
+                    android:gravity="center"
+                    android:text="Detalle de la Venta Solicitada"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="57dp"
+                    android:gravity="center"
+                    android:text="Viveres Primavera"
+                    android:textColor="@color/white"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/txtNombreCliente"
+                        android:layout_width="175dp"
+                        android:layout_height="40dp"
+                        android:text="Nombre Cliente"
+                        android:textAlignment="center"
+                        android:textColor="#FFFF"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/textView1221"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:id="@+id/txtDireccionCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="Direccion"
+                        android:textAlignment="center"
+                        android:textColor="#FFFF"
+                        android:textSize="20sp" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="9dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/txtFechaVenta"
+                        android:layout_width="175dp"
+                        android:layout_height="50dp"
+                        android:text="Fecha Venta"
+                        android:textAlignment="center"
+                        android:textColor="#FFFF"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/textView1227"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:id="@+id/txtEstadoVenta"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Estado Venta"
+                        android:textAlignment="center"
+                        android:textColor="#FFFF"
+                        android:textSize="20sp" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="match_parent"
+                    android:layout_height="43dp"
+                    android:gravity="center"
+                    android:text="Productos"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/lstProdutosVenta"
+                android:layout_width="match_parent"
+                android:layout_height="281dp" />
+
+            <TextView
+                android:id="@+id/textView41"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Total"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtTotalVenta"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/texto_form"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:paddingLeft="20sp"
+                android:text="Total"
+                android:textColor="#6E7692"
+                android:textColorHint="#6E7692"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="175dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="#f55b59"
+                    android:drawableLeft="@drawable/ic_baseline_spellcheck_24"
+                    android:onClick="actualizarEstadoVenta"
+                    android:text="Despachar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    app:cornerRadius="20dp"
+                    app:iconPadding="2dp" />
+                <TextView
+                    android:id="@+id/textView122"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp" />
+
+                <Button
+                    android:id="@+id/button4"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:backgroundTint="#87d469"
+                    android:drawableLeft="?attr/homeAsUpIndicator"
+                    android:onClick="salirDespacharVentas"
+                    android:text="Salir"
+                    android:textColor="#FFFF"
+                    android:textSize="20sp"
+                    app:cornerRadius="20dp"
+                    app:iconPadding="2dp" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

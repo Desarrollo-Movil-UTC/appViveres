@@ -51,9 +51,9 @@ public class CerrarVentaActivity extends AppCompatActivity {
         editor = preferences.edit();
         idUsuario= this.preferences.getString(llaveIdUsuario,"");
         //******************************************************************************************
-        txtTotal=(TextView) findViewById(R.id.txtTotal);
+        txtTotal=(TextView) findViewById(R.id.txtTotalVenta);
         miBdd=new BaseDatos(getApplicationContext());
-        lstProdutosCarrito=(ListView) findViewById(R.id.lstProdutosCarrito);
+        lstProdutosCarrito=(ListView) findViewById(R.id.lstProdutosVenta);
         consultarProductosCarrito();
         total();
         txtTotal.setText(calcularTotal.toString());

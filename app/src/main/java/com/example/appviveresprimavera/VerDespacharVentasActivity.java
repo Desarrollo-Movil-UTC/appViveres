@@ -12,7 +12,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-
+/*
+@autores:Sandoval,Sanchez,Robayo
+@creación: 21/07/2021
+@Modificación: 21/07/2021
+@descripción: Despachar Productos
+*/
 public class VerDespacharVentasActivity extends AppCompatActivity {
     //definicion de elementos xml
     ListView listVentas;
@@ -30,7 +35,29 @@ public class VerDespacharVentasActivity extends AppCompatActivity {
         //instanciar /construir la base de datos en el objeto mi bdd
         miBdd= new BaseDatos(getApplicationContext());
         consultarVentas(); //invoca al metodo de listar
+        //generar acciones cuando se da click sobre un prodcuto de la lista
+        listVentas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ventasObtenidas.moveToPosition(position);
 
+                //mediante el cursor se obtiene los datos del curso seleccionado
+                String id_venta = ventasObtenidas.getString(0);
+                String fecha_venta = ventasObtenidas.getString(1);
+                String total_venta = ventasObtenidas.getString(2);
+                String estado_venta = ventasObtenidas.getString(3);
+                String idUsuario_venta = ventasObtenidas.getString(4);
+                //manejando el objeto para abrir la ventana de Lista de Estudiantes de un curso
+                Intent ventanaDetalleVenta = new Intent(getApplicationContext(), VerDespacharDetalleVentaAtivity.class);
+                ventanaDetalleVenta.putExtra("id_venta", id_venta); //pasando el id del curso como parametro
+                ventanaDetalleVenta.putExtra("fecha_venta", fecha_venta);
+                ventanaDetalleVenta.putExtra("total_venta", total_venta);
+                ventanaDetalleVenta.putExtra("estado_venta", estado_venta);
+                ventanaDetalleVenta.putExtra("idUsuario_venta", idUsuario_venta);
+                startActivity(ventanaDetalleVenta);
+                finish();
+            }
+        });
 
     }
 
