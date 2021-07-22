@@ -44,6 +44,7 @@ public class Producto implements Serializable {
     public void setPrecio(String precio) {
         this.precio = precio;
     }
+    
     public String getDescripcion() {
         return descripcion;
     }

@@ -55,7 +55,7 @@ public class ConsultarProductoActivity extends AppCompatActivity implements Item
                 producto=new Producto();
                 producto.setId(productosObtenidos.getInt(0));
                 producto.setNombre(productosObtenidos.getString(1));
-                producto.setPrecio(productosObtenidos.getString(2));
+                producto.setPrecio(productosObtenidos.getString(3));
 
 
                 //construyendo las filas para presentar datos en el ListView

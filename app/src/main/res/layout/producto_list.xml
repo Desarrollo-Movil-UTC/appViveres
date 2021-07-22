@@ -20,6 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Producto:"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -27,7 +28,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Pan" />
+                android:text="Pan"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -40,6 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Precio Unitario:"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,7 +50,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Cristian David Henao" />
+                android:text="Cristian David Henao"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
